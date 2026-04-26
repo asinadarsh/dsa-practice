@@ -1,8 +1,13 @@
 name: Auto-ping Render
 
+# GitHub Actions scheduled workflows are unreliable (often 30-60 min delays on free runners).
+# This workflow is the FALLBACK — the primary keep-alive is the server's internal self-ping
+# (server.js setInterval). Multiple staggered crons increase the chance one fires on time.
 on:
   schedule:
-    - cron: "*/10 * * * *"  # every 10 minutes
+    - cron: "*/5 * * * *"
+    - cron: "2-59/5 * * * *"
+    - cron: "4-59/5 * * * *"
   workflow_dispatch:
 
 jobs:

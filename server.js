@@ -448,6 +448,25 @@ app.get('/api/dashboard', async (_req, res) => {
 
 // -- start --
 await loadAll();
+
+// Self-ping to keep Render free tier warm.
+// Render spins services down after 15 min of no inbound traffic. Pinging the public
+// URL from inside the process counts as inbound (the request goes out to Render's
+// load balancer and back in), so an internal 14-minute interval keeps the instance alive.
+const SELF_PING_URL = process.env.SELF_PING_URL;
+if (SELF_PING_URL) {
+  const intervalMs = 14 * 60 * 1000;
+  console.log(`Self-ping: ${SELF_PING_URL} every ${intervalMs / 60000} min`);
+  setInterval(async () => {
+    try {
+      const r = await fetch(SELF_PING_URL, { method: 'GET' });
+      console.log(`[${new Date().toISOString()}] self-ping ${r.status}`);
+    } catch (e) {
+      console.log(`[${new Date().toISOString()}] self-ping failed: ${e.message}`);
+    }
+  }, intervalMs).unref?.();
+}
+
 app.listen(PORT, () => {
   console.log(`DSA Practice running at http://localhost:${PORT}`);
 });
