@@ -1,0 +1,154 @@
+{
+  "pattern-printing": {
+    "title": "Pattern Printing",
+    "summary": "Use nested loops where the outer loop controls the row and the inner loop controls the column. Map row index to count of characters or spaces.",
+    "whenToUse": "Any problem that prints a 2D shape (stars, numbers, letters). Great warm-up for loops and index reasoning.",
+    "template": "for (int i = 1; i <= n; i++) {\n    // leading spaces (if centered)\n    for (int s = 1; s <= f(i); s++) System.out.print(' ');\n    // content\n    for (int c = 1; c <= g(i); c++) System.out.print('*');\n    System.out.println();\n}",
+    "keyFormulas": [
+      "Right triangle (row i has i stars)",
+      "Pyramid: leading spaces = n - i, stars = 2*i - 1",
+      "Inverted triangle: stars = n - i + 1"
+    ],
+    "pitfalls": [
+      "System.out.print vs println — only add newline after the inner loop.",
+      "Off-by-one: decide if i is 0-indexed or 1-indexed and stick with it."
+    ],
+    "complexity": "O(N²) for NxN grids, O(N²) for triangles.",
+    "relatedProblems": ["pat-square", "pat-rtri", "pat-numtri", "pat-invrtri", "pat-pyramid"]
+  },
+  "digit-extraction": {
+    "title": "Digit Extraction (mod 10)",
+    "summary": "Pull digits off an integer by repeatedly taking n % 10 (last digit) and dividing n /= 10.",
+    "whenToUse": "Count digits, reverse number, digit sum, palindrome number, Armstrong, happy numbers.",
+    "template": "while (n > 0) {\n    int d = n % 10;   // process digit d\n    n /= 10;\n}",
+    "keyFormulas": [
+      "Digit count ≈ log₁₀(N) + 1",
+      "Build reversed: rev = rev * 10 + (n % 10)"
+    ],
+    "pitfalls": [
+      "n == 0 — the loop skips; special-case it if the problem considers 0 as having 1 digit.",
+      "Negatives — use Math.abs or sign handling."
+    ],
+    "complexity": "O(log₁₀ N) — one iteration per digit.",
+    "relatedProblems": ["count-digits", "reverse-number", "check-palindrome", "armstrong"]
+  },
+  "euclidean-gcd": {
+    "title": "Euclidean GCD",
+    "summary": "gcd(a, b) = gcd(b, a mod b). Terminates when b == 0; at that point a is the gcd.",
+    "whenToUse": "GCD, LCM (lcm(a,b) = a*b / gcd(a,b)), reducing fractions, number theory problems.",
+    "template": "while (b != 0) {\n    int t = b;\n    b = a % b;\n    a = t;\n}\n// a is gcd(a, b)",
+    "pitfalls": [
+      "gcd(0, x) = x — the algorithm handles this naturally.",
+      "Negative numbers — conventionally gcd is non-negative, so use Math.abs on inputs."
+    ],
+    "complexity": "O(log(min(a, b))) — way faster than brute O(min(a,b)).",
+    "relatedProblems": ["gcd"]
+  },
+  "recursion-basics": {
+    "title": "Recursion 101",
+    "summary": "A recursive function calls itself on a smaller sub-problem. Two ingredients: (1) a BASE CASE that stops the recursion, (2) a RECURSIVE CASE that reduces the problem.",
+    "whenToUse": "Problems naturally broken into sub-problems: factorial, Fibonacci, tree/graph traversal, divide-and-conquer.",
+    "template": "returnType fn(params) {\n    if (baseCondition) return baseResult;\n    // do some work, call fn on smaller input, combine\n    return combine(work, fn(smaller));\n}",
+    "mentalModel": [
+      "Trust the recursion: assume fn(smaller) already works correctly.",
+      "Think of the call stack — each call frame holds its own local vars.",
+      "Convert to iteration if stack depth could blow up."
+    ],
+    "pitfalls": [
+      "Missing/weak base case → infinite recursion → StackOverflowError.",
+      "Redundant recomputation (e.g., plain fib) → exponential time. Fix with memoization / DP."
+    ],
+    "complexity": "Depth = O(depth of recursion). Plain recursion without memoization can be exponential.",
+    "relatedProblems": ["rec-print-n", "rec-sum-n", "rec-factorial", "rec-reverse-array", "rec-palindrome-str", "rec-fibonacci"]
+  },
+  "two-pointers": {
+    "title": "Two Pointers",
+    "summary": "Two indices walk through the array — usually one from each end (for sorted arrays / palindromes) or both from the left at different speeds (write/scan, slow/fast).",
+    "whenToUse": "Pairs with a target sum in sorted arrays, reverse in place, remove duplicates, partition / move zeros, palindrome checks, merge two sorted arrays.",
+    "template": "int l = 0, r = n - 1;\nwhile (l < r) {\n    // decide based on a[l] and a[r]\n    if (cond) l++;\n    else r--;\n}",
+    "writeScanVariant": "int i = 0;\nfor (int j = 0; j < n; j++) {\n    if (keep(a[j])) { a[i++] = a[j]; }\n}",
+    "pitfalls": [
+      "Off-by-one with l < r vs l <= r.",
+      "Moving both pointers unconditionally — you usually advance only one per iteration."
+    ],
+    "complexity": "O(N) with O(1) extra space — hard to beat.",
+    "relatedProblems": ["arr-remove-duplicates", "arr-move-zeros", "arr-union-sorted", "rec-reverse-array", "rec-palindrome-str"]
+  },
+  "sorting-comparison": {
+    "title": "Comparison Sorts (bubble / selection / insertion / merge / quick)",
+    "summary": "Sorting by comparing pairs of elements. Different algorithms pick different orders and achieve different time/space/stability tradeoffs.",
+    "cheatsheet": [
+      "Selection sort: find min of suffix, swap into place. O(N²) time, O(1) space. NOT stable.",
+      "Bubble sort: swap adjacent out-of-order pairs. O(N²) worst, O(N) best (sorted input) with early-exit. Stable.",
+      "Insertion sort: build sorted prefix by inserting next element. O(N²) worst, O(N) best. Stable. Great for small/nearly-sorted arrays.",
+      "Merge sort: divide & conquer. O(N log N) time, O(N) extra space. Stable.",
+      "Quick sort: partition around pivot, recurse. O(N log N) average, O(N²) worst, O(log N) space. NOT stable.",
+      "Best possible comparison sort: Ω(N log N) lower bound."
+    ],
+    "stabilityMatters": "If you sort objects by a key, 'stable' preserves original order among equal keys. Useful for multi-level sorting.",
+    "relatedProblems": ["sort-selection", "sort-bubble", "sort-insertion", "sort-merge"]
+  },
+  "divide-conquer": {
+    "title": "Divide and Conquer",
+    "summary": "Split the problem into smaller independent sub-problems, solve each recursively, combine the results.",
+    "recurrence": "T(N) = a * T(N/b) + O(f(N)) — solve with the Master Theorem.",
+    "classics": [
+      "Merge sort — T(N) = 2T(N/2) + O(N) = O(N log N)",
+      "Binary search — T(N) = T(N/2) + O(1) = O(log N)",
+      "Count inversions (via modified merge sort)"
+    ],
+    "pitfalls": ["Avoid overlapping sub-problems — that's where DP beats D&C."],
+    "relatedProblems": ["sort-merge"]
+  },
+  "xor-trick": {
+    "title": "XOR Trick",
+    "summary": "XOR has two superpowers: x ^ x == 0 and x ^ 0 == x. XORing a value twice cancels it out.",
+    "whenToUse": "Find the unique element when others appear twice. Find missing number (XOR range ^ array). Swap two ints without a temp. Toggle bits.",
+    "template": "int x = 0;\nfor (int v : a) x ^= v;\n// x is the lonely element",
+    "niceProperties": [
+      "Commutative and associative — order doesn't matter.",
+      "O(1) space — no hash set needed.",
+      "No overflow (unlike sum-based tricks)."
+    ],
+    "relatedProblems": ["arr-single-number", "arr-missing-num"]
+  },
+  "array-rotation": {
+    "title": "Array Rotation",
+    "summary": "Rotate elements by K positions. The reverse trick rotates in O(N) time, O(1) space.",
+    "reverseTrick": [
+      "Step 1: reverse a[0..k-1]",
+      "Step 2: reverse a[k..n-1]",
+      "Step 3: reverse the whole array"
+    ],
+    "whyItWorks": "After two reversals, each half's internal order is flipped; a final whole-array reverse un-flips and swaps the halves into position.",
+    "rightRotateByK": "Same idea with step indices reversed, or equivalently left-rotate by (n - k).",
+    "pitfalls": ["Normalize k: k %= n before doing anything."],
+    "relatedProblems": ["arr-rotate-1", "arr-rotate-d"]
+  },
+  "linear-scan": {
+    "title": "Single-Pass Linear Scan",
+    "summary": "Walk the array once, maintaining a small amount of state (running max/min/count/sum). O(N) time, O(1) space — often optimal.",
+    "whenToUse": "Find max/min/second-max, longest run, running sums, counting predicates, single-number XOR.",
+    "template": "int best = initial;\nfor (int x : a) {\n    // update state based on x\n    best = better(best, x);\n}",
+    "pitfalls": [
+      "Initial value: use a[0] or Integer.MIN_VALUE/MAX_VALUE based on the problem.",
+      "Empty array — handle separately if the problem allows N == 0."
+    ],
+    "relatedProblems": ["arr-largest", "arr-second-largest", "arr-max-ones", "arr-is-sorted"]
+  },
+  "memoization": {
+    "title": "Memoization (top-down DP)",
+    "summary": "Cache results of recursive calls so each unique input is computed once. Turns exponential recursion into polynomial.",
+    "whenToUse": "Overlapping sub-problems: Fibonacci, grid paths, coin change, longest common subsequence.",
+    "template": "Long[] memo = new Long[n + 1];\nlong solve(int x) {\n    if (base(x)) return baseValue(x);\n    if (memo[x] != null) return memo[x];\n    return memo[x] = combine(solve(...), solve(...));\n}",
+    "bottomUp": "After memoization works, convert to iterative DP: loop from base to target, fill a table.",
+    "relatedProblems": ["rec-fibonacci"]
+  },
+  "reverse-trick": {
+    "title": "Reverse Trick",
+    "summary": "Three sub-array reversals rotate an array in-place with O(1) space. Also used in some string rearrangement problems.",
+    "whyRemember": "Comes up surprisingly often — array rotations, in-place shuffles, palindrome constructions.",
+    "template": "reverse(a, 0, k - 1);\nreverse(a, k, n - 1);\nreverse(a, 0, n - 1);",
+    "relatedProblems": ["arr-rotate-d"]
+  }
+}

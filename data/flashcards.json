@@ -1,0 +1,129 @@
+[
+  {
+    "id": "fc-complexity-merge",
+    "topic": "Sorting",
+    "type": "mcq",
+    "question": "Worst-case time complexity of Merge Sort?",
+    "choices": ["O(N)", "O(N log N)", "O(N²)", "O(log N)"],
+    "correct": 1,
+    "explanation": "Merge sort always splits in half (log N levels) and merges each level in O(N). Independent of input order."
+  },
+  {
+    "id": "fc-complexity-quick",
+    "topic": "Sorting",
+    "type": "mcq",
+    "question": "Worst-case time complexity of Quick Sort?",
+    "choices": ["O(N log N)", "O(N²)", "O(N)", "O(log N)"],
+    "correct": 1,
+    "explanation": "When every partition is maximally unbalanced (already sorted + first-element pivot), quicksort degrades to O(N²). Randomized pivot fixes this in practice."
+  },
+  {
+    "id": "fc-complexity-bubble-best",
+    "topic": "Sorting",
+    "type": "mcq",
+    "question": "Best-case time of Bubble Sort (with early-exit)?",
+    "choices": ["O(N)", "O(N log N)", "O(N²)", "O(1)"],
+    "correct": 0,
+    "explanation": "On an already-sorted array, no swaps occur in the first pass → early exit → O(N)."
+  },
+  {
+    "id": "fc-stable-sorts",
+    "topic": "Sorting",
+    "type": "mcq",
+    "question": "Which of these sorts is NOT stable?",
+    "choices": ["Merge sort", "Insertion sort", "Bubble sort", "Quick sort"],
+    "correct": 3,
+    "explanation": "Standard quicksort is NOT stable. Merge, insertion, bubble all preserve the original order of equal keys."
+  },
+  {
+    "id": "fc-xor-identity",
+    "topic": "Bit Manipulation",
+    "type": "short",
+    "question": "What is x ^ x?",
+    "accepted": ["0"],
+    "explanation": "XOR of any value with itself is 0. Core property used in the 'single number' and 'missing number' tricks."
+  },
+  {
+    "id": "fc-xor-zero",
+    "topic": "Bit Manipulation",
+    "type": "short",
+    "question": "What is x ^ 0?",
+    "accepted": ["x"],
+    "explanation": "XOR with 0 is the identity — leaves x unchanged."
+  },
+  {
+    "id": "fc-pattern-sorted-pair",
+    "topic": "Patterns",
+    "type": "short",
+    "question": "Which pattern solves 'find two numbers in a SORTED array summing to target' in O(N), O(1) space?",
+    "accepted": ["two pointers", "two-pointer", "2 pointers", "2-pointer"],
+    "explanation": "Left and right pointers; move L→ if sum too small, R← if too big. Unsorted case uses a hashmap."
+  },
+  {
+    "id": "fc-pattern-subarray-sum",
+    "topic": "Patterns",
+    "type": "short",
+    "question": "Which pattern solves 'longest subarray with sum K' on arrays with NEGATIVE numbers?",
+    "accepted": ["prefix sum", "prefix-sum", "hashmap", "hash map", "prefix sum + hashmap"],
+    "explanation": "Compute running prefix sum; for each i, check if (prefix[i] - K) has been seen. O(N) with a hashmap."
+  },
+  {
+    "id": "fc-pattern-positives-subarray",
+    "topic": "Patterns",
+    "type": "short",
+    "question": "Longest subarray with sum K on arrays with ONLY POSITIVES — what pattern?",
+    "accepted": ["sliding window", "two pointers", "sliding-window"],
+    "explanation": "Since all values are positive, expanding the window monotonically grows the sum — sliding window works in O(N)."
+  },
+  {
+    "id": "fc-gcd-recurrence",
+    "topic": "Math",
+    "type": "short",
+    "question": "Euclidean: gcd(a, b) = gcd(?, ?).",
+    "accepted": ["b, a%b", "b,a%b", "b, a mod b", "b, a mod b"],
+    "explanation": "gcd(a, b) = gcd(b, a mod b); terminates when b == 0."
+  },
+  {
+    "id": "fc-binary-search-mid",
+    "topic": "Binary Search",
+    "type": "fill",
+    "question": "To avoid integer overflow on large arrays, compute mid as:",
+    "template": "int mid = low + (____) / 2;",
+    "accepted": ["high - low", "(high-low)", "high-low"],
+    "explanation": "(low + high)/2 can overflow; low + (high-low)/2 is safe even for ints near MAX_VALUE."
+  },
+  {
+    "id": "fc-recursion-two-parts",
+    "topic": "Recursion",
+    "type": "short",
+    "question": "Every correct recursive function needs two things. Name them.",
+    "accepted": ["base case and recursive case", "base case recursive case", "base and recursive", "base case, recursive step"],
+    "explanation": "Base case stops the recursion; recursive case reduces toward the base."
+  },
+  {
+    "id": "fc-fib-plain-time",
+    "topic": "Recursion",
+    "type": "mcq",
+    "question": "Time complexity of plain (un-memoized) Fibonacci recursion?",
+    "choices": ["O(N)", "O(N²)", "O(2^N)", "O(log N)"],
+    "correct": 2,
+    "explanation": "Each call branches into two. The tree has roughly 2^N nodes. Memoization drops it to O(N)."
+  },
+  {
+    "id": "fc-array-max-time",
+    "topic": "Arrays",
+    "type": "mcq",
+    "question": "Minimum time to find the maximum of an unsorted array of N elements?",
+    "choices": ["O(log N)", "O(N)", "O(N log N)", "O(1)"],
+    "correct": 1,
+    "explanation": "You must inspect every element at least once — O(N) is a lower bound here."
+  },
+  {
+    "id": "fc-rotation-formula",
+    "topic": "Arrays",
+    "type": "short",
+    "question": "To LEFT rotate by k using the reverse trick, what 3 reversals?",
+    "accepted": ["reverse 0..k-1, reverse k..n-1, reverse 0..n-1", "0..k-1 then k..n-1 then whole", "first k, last n-k, whole"],
+    "explanation": "Reverse first k, reverse last n-k, reverse whole array. O(N) time, O(1) space."
+  }
+]

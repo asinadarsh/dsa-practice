@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DSA Practice — Strivers A2Z</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
+</head>
+<body>
+<div class="app">
+  <nav class="side">
+    <h1>DSA Practice</h1>
+    <a href="#/dashboard" data-route="dashboard">Dashboard</a>
+    <a href="#/roadmap" data-route="roadmap">Roadmap</a>
+    <a href="#/concepts" data-route="concepts">Concepts</a>
+    <a href="#/drill" data-route="drill">Drill</a>
+    <div class="streak">
+      <b id="streakCount">0</b>
+      Day streak
+      <div id="streakStatus" style="margin-top:4px;"></div>
+    </div>
+  </nav>
+  <main id="main"><div class="muted">Loading…</div></main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

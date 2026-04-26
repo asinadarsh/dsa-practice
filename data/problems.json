@@ -1,0 +1,1651 @@
+{
+  "pat-rhombus": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Bonus: Rhombus of stars",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Print a rhombus of `*`. Each row has (N-i) leading spaces followed by N stars.",
+    "inputFormat": "Integer N.", "outputFormat": "N rows, shifted right.",
+    "examples": [{"input": "4", "output": "   ****\n  ****\n ****\n****"}],
+    "samples": [{"stdin": "4", "expected": "   ****\n  ****\n ****\n****"}],
+    "tests": [
+      {"stdin": "4", "expected": "   ****\n  ****\n ****\n****"},
+      {"stdin": "1", "expected": "*"},
+      {"stdin": "3", "expected": "  ***\n ***\n***"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Two inner loops per row: (n-i) spaces, then n stars."],
+    "approaches": [{
+      "name": "Spaces then stars", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int s = 1; s <= n - i; s++) System.out.print(\" \");\n    for (int st = 1; st <= n; st++) System.out.print(\"*\");\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-hollow-rect": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 21: Hollow Rectangle",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Print an N x M hollow rectangle of `*` — border stars, interior spaces.",
+    "inputFormat": "Two integers N M (rows and cols).",
+    "outputFormat": "N lines.",
+    "examples": [{"input": "3 5", "output": "*****\n*   *\n*****"}],
+    "samples": [{"stdin": "3 5", "expected": "*****\n*   *\n*****"}],
+    "tests": [
+      {"stdin": "3 5", "expected": "*****\n*   *\n*****"},
+      {"stdin": "4 4", "expected": "****\n*  *\n*  *\n****"},
+      {"stdin": "1 3", "expected": "***"},
+      {"stdin": "2 2", "expected": "**\n**"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt(), m = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Print `*` on first/last row, or first/last column; else print space.",
+      "Be careful with n==1 or m==1 edge cases — there's no interior."
+    ],
+    "approaches": [{
+      "name": "Border check", "time": "O(N*M)", "space": "O(1)",
+      "code": "for (int i = 0; i < n; i++) {\n    for (int j = 0; j < m; j++) {\n        if (i == 0 || i == n - 1 || j == 0 || j == m - 1) System.out.print(\"*\");\n        else System.out.print(\" \");\n    }\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-half-diamond": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 10: Half Diamond",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "A half diamond: row i has i stars for i=1..N, then (2N-i) stars for i=N+1..2N-1. Each row ends the moment its star count reaches 0.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "2N-1 rows forming a diamond-like shape.",
+    "examples": [{"input": "3", "output": "*\n**\n***\n**\n*"}],
+    "samples": [{"stdin": "3", "expected": "*\n**\n***\n**\n*"}],
+    "tests": [
+      {"stdin": "3", "expected": "*\n**\n***\n**\n*"},
+      {"stdin": "1", "expected": "*"},
+      {"stdin": "4", "expected": "*\n**\n***\n****\n***\n**\n*"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["First N rows increasing (i stars). Then N-1 rows decreasing."],
+    "approaches": [{
+      "name": "Two loops", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) { for (int j = 0; j < i; j++) System.out.print(\"*\"); System.out.println(); }\nfor (int i = n - 1; i >= 1; i--) { for (int j = 0; j < i; j++) System.out.print(\"*\"); System.out.println(); }"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-diamond": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 9: Star Diamond",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Print a full diamond. Top half is a pyramid (N rows, row i has (N-i) spaces + (2i-1) stars). Bottom half is inverted pyramid (N rows, row i has (i-1) spaces + (2N-2i+1) stars).",
+    "inputFormat": "Integer N.",
+    "outputFormat": "2N rows.",
+    "examples": [{"input": "3", "output": "  *\n ***\n*****\n*****\n ***\n  *"}],
+    "samples": [{"stdin": "3", "expected": "  *\n ***\n*****\n*****\n ***\n  *"}],
+    "tests": [
+      {"stdin": "3", "expected": "  *\n ***\n*****\n*****\n ***\n  *"},
+      {"stdin": "1", "expected": "*\n*"},
+      {"stdin": "2", "expected": " *\n***\n***\n *"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Top: spaces=n-i, stars=2i-1. Bottom: spaces=i-1, stars=2*(n-i)+1 for i=1..n."],
+    "approaches": [{
+      "name": "Two halves", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int s = 1; s <= n - i; s++) System.out.print(\" \");\n    for (int st = 1; st <= 2*i - 1; st++) System.out.print(\"*\");\n    System.out.println();\n}\nfor (int i = 1; i <= n; i++) {\n    for (int s = 1; s <= i - 1; s++) System.out.print(\" \");\n    for (int st = 1; st <= 2*(n - i) + 1; st++) System.out.print(\"*\");\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-butterfly": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 20: Star Butterfly",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Print a butterfly pattern of stars. Top N rows: i stars, then 2*(N-i) spaces, then i stars. Bottom N rows are the mirror.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "2N rows.",
+    "examples": [{"input": "3", "output": "*    *\n**  **\n******\n******\n**  **\n*    *"}],
+    "samples": [{"stdin": "3", "expected": "*    *\n**  **\n******\n******\n**  **\n*    *"}],
+    "tests": [
+      {"stdin": "3", "expected": "*    *\n**  **\n******\n******\n**  **\n*    *"},
+      {"stdin": "1", "expected": "**\n**"},
+      {"stdin": "2", "expected": "*  *\n****\n****\n*  *"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Row i (top half): i stars, 2*(n-i) spaces, i stars. Bottom half mirrors it."],
+    "approaches": [{
+      "name": "Symmetric halves", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= i; j++) System.out.print(\"*\");\n    for (int s = 1; s <= 2*(n - i); s++) System.out.print(\" \");\n    for (int j = 1; j <= i; j++) System.out.print(\"*\");\n    System.out.println();\n}\nfor (int i = n; i >= 1; i--) {\n    for (int j = 1; j <= i; j++) System.out.print(\"*\");\n    for (int s = 1; s <= 2*(n - i); s++) System.out.print(\" \");\n    for (int j = 1; j <= i; j++) System.out.print(\"*\");\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-num-pyramid": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 11: Binary Triangle (0/1 alternating)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i (1-indexed) prints (i) numbers: if the row starts with 1 (odd row number), alternate 1 0 1 0 ... Otherwise start with 0: 0 1 0 1 ... Each row has i numbers concatenated (no spaces).",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "4", "output": "1\n01\n101\n0101"}],
+    "samples": [{"stdin": "4", "expected": "1\n01\n101\n0101"}],
+    "tests": [
+      {"stdin": "4", "expected": "1\n01\n101\n0101"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "5", "expected": "1\n01\n101\n0101\n10101"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Track a `start` digit (1 if i is odd, 0 if even). Alternate by flipping with ^1 each column."],
+    "approaches": [{
+      "name": "Alternate with XOR", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    int d = (i % 2 == 1) ? 1 : 0;\n    for (int j = 1; j <= i; j++) { System.out.print(d); d ^= 1; }\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-01-alternating": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 12: Number Crown (mirrored triangle)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i prints: numbers 1..i, then (2*(n-i)) spaces, then numbers i..1. The result is N rows forming a mirrored number pyramid.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "3", "output": "1    1\n12  21\n123321"}],
+    "samples": [{"stdin": "3", "expected": "1    1\n12  21\n123321"}],
+    "tests": [
+      {"stdin": "3", "expected": "1    1\n12  21\n123321"},
+      {"stdin": "1", "expected": "11"},
+      {"stdin": "2", "expected": "1  1\n1221"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Three parts per row: ascending 1..i, middle spaces, descending i..1.", "Middle gap = 2*(n-i)."],
+    "approaches": [{
+      "name": "Three-part row", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= i; j++) System.out.print(j);\n    for (int s = 1; s <= 2*(n - i); s++) System.out.print(\" \");\n    for (int j = i; j >= 1; j--) System.out.print(j);\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-num-crown": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 13: Continuous Numbers Triangle",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i prints numbers i through i+(i-1) — i.e., i consecutive integers starting from i. No separators.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "4", "output": "1\n23\n456\n78910"}],
+    "samples": [{"stdin": "4", "expected": "1\n23\n456\n78910"}],
+    "tests": [
+      {"stdin": "4", "expected": "1\n23\n456\n78910"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "3", "expected": "1\n23\n456"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Maintain a running counter that doesn't reset between rows."],
+    "approaches": [{
+      "name": "Running counter", "time": "O(N²)", "space": "O(1)",
+      "code": "int k = 1;\nfor (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= i; j++) System.out.print(k++);\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "print-divisors": {
+    "step": 1, "section": "1.4", "sectionTitle": "Basic Math",
+    "title": "Print All Divisors",
+    "difficulty": "Easy", "tags": ["math"],
+    "statement": "Given N, print all positive divisors in ascending order, space-separated.",
+    "inputFormat": "Integer N (1 <= N <= 10^9).",
+    "outputFormat": "Divisors ascending, space-separated.",
+    "examples": [{"input": "36", "output": "1 2 3 4 6 9 12 18 36"}],
+    "samples": [{"stdin": "36", "expected": "1 2 3 4 6 9 12 18 36"}],
+    "tests": [
+      {"stdin": "36", "expected": "1 2 3 4 6 9 12 18 36"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "7", "expected": "1 7"},
+      {"stdin": "12", "expected": "1 2 3 4 6 12"},
+      {"stdin": "100", "expected": "1 2 4 5 10 20 25 50 100"}
+    ],
+    "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // print divisors ascending\n    }\n}",
+    "hints": [
+      "Brute: loop i from 1 to N, check n % i == 0.",
+      "Optimal: loop i up to sqrt(N). If i divides n, then both i and n/i are divisors.",
+      "Collect into lower[] and upper[], then print lower ascending and upper descending."
+    ],
+    "approaches": [
+      {
+        "name": "Brute O(N)", "time": "O(N)", "space": "O(D)",
+        "code": "List<Integer> d = new ArrayList<>();\nfor (int i = 1; i <= n; i++) if (n % i == 0) d.add(i);\nStringBuilder sb = new StringBuilder();\nfor (int i = 0; i < d.size(); i++) { if (i>0) sb.append(' '); sb.append(d.get(i)); }\nSystem.out.println(sb);"
+      },
+      {
+        "name": "Sqrt(N) optimal", "time": "O(sqrt N)", "space": "O(D)",
+        "explanation": "Every divisor i <= sqrt(N) pairs with n/i. Collect both then sort.",
+        "code": "List<Integer> d = new ArrayList<>();\nfor (int i = 1; (long)i * i <= n; i++) {\n    if (n % i == 0) { d.add(i); if (i != n / i) d.add(n / i); }\n}\nCollections.sort(d);\nStringBuilder sb = new StringBuilder();\nfor (int i = 0; i < d.size(); i++) { if (i>0) sb.append(' '); sb.append(d.get(i)); }\nSystem.out.println(sb);"
+      }
+    ],
+    "conceptIds": ["divisors"]
+  },
+
+  "prime-check": {
+    "step": 1, "section": "1.4", "sectionTitle": "Basic Math",
+    "title": "Check for Prime",
+    "difficulty": "Easy", "tags": ["math"],
+    "statement": "Given N >= 1, print 'true' if prime, else 'false'. (1 is NOT prime.)",
+    "inputFormat": "Integer N.",
+    "outputFormat": "'true' or 'false'.",
+    "examples": [{"input": "7", "output": "true"}, {"input": "4", "output": "false"}],
+    "samples": [{"stdin": "7", "expected": "true"}, {"stdin": "4", "expected": "false"}],
+    "tests": [
+      {"stdin": "7", "expected": "true"},
+      {"stdin": "4", "expected": "false"},
+      {"stdin": "1", "expected": "false"},
+      {"stdin": "2", "expected": "true"},
+      {"stdin": "97", "expected": "true"},
+      {"stdin": "100", "expected": "false"},
+      {"stdin": "9", "expected": "false"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // print true or false\n    }\n}",
+    "hints": [
+      "If N < 2, not prime.",
+      "Check divisibility only up to sqrt(N) — if a*b=N, one of them is <= sqrt(N).",
+      "Skip even i > 2 for a small speedup."
+    ],
+    "approaches": [{
+      "name": "sqrt(N) trial division", "time": "O(sqrt N)", "space": "O(1)",
+      "code": "if (n < 2) { System.out.println(\"false\"); return; }\nboolean prime = true;\nfor (int i = 2; (long)i * i <= n; i++) if (n % i == 0) { prime = false; break; }\nSystem.out.println(prime);"
+    }],
+    "conceptIds": ["divisors"]
+  },
+
+  "rec-print-name-n": {
+    "step": 1, "section": "1.5", "sectionTitle": "Basic Recursion",
+    "title": "Print a name N times (recursion)",
+    "difficulty": "Easy", "tags": ["recursion"],
+    "statement": "Given integer N and a string S, print S N times on separate lines using recursion.",
+    "inputFormat": "Line 1: N. Line 2: string S (no spaces).",
+    "outputFormat": "S printed N times.",
+    "examples": [{"input": "3\nRaj", "output": "Raj\nRaj\nRaj"}],
+    "samples": [{"stdin": "3\nRaj", "expected": "Raj\nRaj\nRaj"}],
+    "tests": [
+      {"stdin": "3\nRaj", "expected": "Raj\nRaj\nRaj"},
+      {"stdin": "1\nHi", "expected": "Hi"},
+      {"stdin": "5\nX", "expected": "X\nX\nX\nX\nX"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void printN(int i, int n, String s) {\n        // your recursion\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        String s = sc.next();\n        printN(1, n, s);\n    }\n}",
+    "hints": ["Base: i > n → return.", "Recursive: println(s); printN(i+1, n, s)."],
+    "approaches": [{
+      "name": "Tail recursion", "time": "O(N)", "space": "O(N) stack",
+      "code": "static void printN(int i, int n, String s) {\n    if (i > n) return;\n    System.out.println(s);\n    printN(i + 1, n, s);\n}"
+    }],
+    "conceptIds": ["recursion-basics"]
+  },
+
+  "rec-print-n-to-1": {
+    "step": 1, "section": "1.5", "sectionTitle": "Basic Recursion",
+    "title": "Print N to 1 using Recursion",
+    "difficulty": "Easy", "tags": ["recursion"],
+    "statement": "Using recursion, print N, N-1, ..., 1 on one line space-separated.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "'N N-1 ... 1'.",
+    "examples": [{"input": "5", "output": "5 4 3 2 1"}],
+    "samples": [{"stdin": "5", "expected": "5 4 3 2 1"}],
+    "tests": [
+      {"stdin": "5", "expected": "5 4 3 2 1"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "3", "expected": "3 2 1"},
+      {"stdin": "10", "expected": "10 9 8 7 6 5 4 3 2 1"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static StringBuilder out = new StringBuilder();\n    static void print(int i) {\n        // your recursion\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        print(n);\n        System.out.println(out.toString().trim());\n    }\n}",
+    "hints": [
+      "Base: i < 1 → return.",
+      "Print i, then recurse on i-1. Or recurse first then print (gives 1..N)."
+    ],
+    "approaches": [{
+      "name": "Print-then-recurse", "time": "O(N)", "space": "O(N) stack",
+      "code": "static void print(int i) {\n    if (i < 1) return;\n    out.append(i).append(' ');\n    print(i - 1);\n}"
+    }],
+    "conceptIds": ["recursion-basics"]
+  },
+
+  "hash-freq-array": {
+    "step": 1, "section": "1.6", "sectionTitle": "Basic Hashing",
+    "title": "Counting Frequencies of Array Elements",
+    "difficulty": "Easy", "tags": ["hashing"],
+    "statement": "Given an array, count each DISTINCT element's frequency. Print each unique element and its count on its own line, in the order of FIRST occurrence. Format each line as `value count`.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Each distinct value and its count on its own line, in first-occurrence order.",
+    "examples": [{"input": "6\n10 5 10 15 10 5", "output": "10 3\n5 2\n15 1"}],
+    "samples": [{"stdin": "6\n10 5 10 15 10 5", "expected": "10 3\n5 2\n15 1"}],
+    "tests": [
+      {"stdin": "6\n10 5 10 15 10 5", "expected": "10 3\n5 2\n15 1"},
+      {"stdin": "1\n7", "expected": "7 1"},
+      {"stdin": "4\n1 1 1 1", "expected": "1 4"},
+      {"stdin": "5\n1 2 3 4 5", "expected": "1 1\n2 1\n3 1\n4 1\n5 1"}
+    ],
+    "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Use a LinkedHashMap<Integer,Integer> to preserve insertion order.",
+      "For each element, freq.merge(v, 1, Integer::sum).",
+      "Iterate the map and print each entry on its own line."
+    ],
+    "approaches": [{
+      "name": "LinkedHashMap", "time": "O(N) avg", "space": "O(N)",
+      "code": "Map<Integer,Integer> f = new LinkedHashMap<>();\nfor (int v : a) f.merge(v, 1, Integer::sum);\nStringBuilder sb = new StringBuilder();\nfor (var e : f.entrySet()) sb.append(e.getKey()).append(' ').append(e.getValue()).append('\\n');\nSystem.out.print(sb);"
+    }],
+    "conceptIds": ["hashing"]
+  },
+
+  "hash-highest-lowest-freq": {
+    "step": 1, "section": "1.6", "sectionTitle": "Basic Hashing",
+    "title": "Highest & Lowest Frequency Element",
+    "difficulty": "Easy", "tags": ["hashing"],
+    "statement": "Given an array, print the element with HIGHEST frequency and the element with LOWEST frequency, on two separate lines. If there are ties, print the smallest value among the tied elements.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Line 1: highest-frequency element. Line 2: lowest-frequency element.",
+    "examples": [{"input": "6\n10 5 10 15 10 5", "output": "10\n15"}],
+    "samples": [{"stdin": "6\n10 5 10 15 10 5", "expected": "10\n15"}],
+    "tests": [
+      {"stdin": "6\n10 5 10 15 10 5", "expected": "10\n15"},
+      {"stdin": "1\n7", "expected": "7\n7"},
+      {"stdin": "4\n2 2 3 3", "expected": "2\n2"},
+      {"stdin": "5\n1 2 3 4 5", "expected": "1\n1"}
+    ],
+    "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Build a frequency map.",
+      "Scan entries tracking max-count and min-count; tie-break by smallest key."
+    ],
+    "approaches": [{
+      "name": "HashMap + single scan", "time": "O(N)", "space": "O(N)",
+      "code": "Map<Integer,Integer> f = new HashMap<>();\nfor (int v : a) f.merge(v, 1, Integer::sum);\nint maxC = -1, minC = Integer.MAX_VALUE, maxK = 0, minK = 0;\nfor (var e : f.entrySet()) {\n    int k = e.getKey(), c = e.getValue();\n    if (c > maxC || (c == maxC && k < maxK)) { maxC = c; maxK = k; }\n    if (c < minC || (c == minC && k < minK)) { minC = c; minK = k; }\n}\nSystem.out.println(maxK);\nSystem.out.println(minK);"
+    }],
+    "conceptIds": ["hashing"]
+  },
+
+  "sort-rec-bubble": {
+    "step": 2, "section": "2.2", "sectionTitle": "Sorting",
+    "title": "Recursive Bubble Sort",
+    "difficulty": "Easy", "tags": ["sorting", "recursion"],
+    "statement": "Implement bubble sort using recursion (no loops for the outer passes). Print the sorted array.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Sorted array space-separated.",
+    "examples": [{"input": "5\n5 1 4 2 8", "output": "1 2 4 5 8"}],
+    "samples": [{"stdin": "5\n5 1 4 2 8", "expected": "1 2 4 5 8"}],
+    "tests": [
+      {"stdin": "5\n5 1 4 2 8", "expected": "1 2 4 5 8"},
+      {"stdin": "1\n7", "expected": "7"},
+      {"stdin": "4\n4 3 2 1", "expected": "1 2 3 4"},
+      {"stdin": "6\n3 -1 0 7 2 -5", "expected": "-5 -1 0 2 3 7"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void bubble(int[] a, int n) {\n        // base: if n == 1, done\n        // do one inner pass (bubbling largest to position n-1), then recurse with n-1\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        bubble(a, n);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\n        System.out.println(sb);\n    }\n}",
+    "hints": [
+      "Think of recursion as replacing the OUTER loop.",
+      "Each recursive call places the largest among a[0..n-1] at a[n-1], then recurses with n-1."
+    ],
+    "approaches": [{
+      "name": "Recursive outer, iterative inner", "time": "O(N²)", "space": "O(N) stack",
+      "code": "static void bubble(int[] a, int n) {\n    if (n == 1) return;\n    for (int i = 0; i < n - 1; i++) {\n        if (a[i] > a[i+1]) { int t=a[i]; a[i]=a[i+1]; a[i+1]=t; }\n    }\n    bubble(a, n - 1);\n}"
+    }],
+    "conceptIds": ["sorting-comparison", "recursion-basics"]
+  },
+
+  "sort-rec-insertion": {
+    "step": 2, "section": "2.2", "sectionTitle": "Sorting",
+    "title": "Recursive Insertion Sort",
+    "difficulty": "Easy", "tags": ["sorting", "recursion"],
+    "statement": "Implement insertion sort using recursion. Print the sorted array.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Sorted array.",
+    "examples": [{"input": "5\n12 11 13 5 6", "output": "5 6 11 12 13"}],
+    "samples": [{"stdin": "5\n12 11 13 5 6", "expected": "5 6 11 12 13"}],
+    "tests": [
+      {"stdin": "5\n12 11 13 5 6", "expected": "5 6 11 12 13"},
+      {"stdin": "3\n1 2 3", "expected": "1 2 3"},
+      {"stdin": "4\n4 3 2 1", "expected": "1 2 3 4"},
+      {"stdin": "1\n99", "expected": "99"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void insert(int[] a, int i) {\n        // insert a[i] into its correct position in a[0..i]\n    }\n    static void sort(int[] a, int i, int n) {\n        // if i >= n, done; else insert(a, i), sort(a, i+1, n)\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        sort(a, 1, n);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\n        System.out.println(sb);\n    }\n}",
+    "hints": [
+      "The recursive structure just replaces the outer loop of insertion sort.",
+      "sort(a, i, n): if i == n return; insert(a, i); sort(a, i+1, n).",
+      "insert does the 'shift left' operation — can be iterative inside."
+    ],
+    "approaches": [{
+      "name": "Outer recursion + iterative insert", "time": "O(N²)", "space": "O(N) stack",
+      "code": "static void insert(int[] a, int i) {\n    int key = a[i], j = i - 1;\n    while (j >= 0 && a[j] > key) { a[j+1] = a[j]; j--; }\n    a[j+1] = key;\n}\nstatic void sort(int[] a, int i, int n) {\n    if (i >= n) return;\n    insert(a, i);\n    sort(a, i + 1, n);\n}"
+    }],
+    "conceptIds": ["sorting-comparison", "recursion-basics"]
+  },
+
+  "sort-quick": {
+    "step": 2, "section": "2.2", "sectionTitle": "Sorting",
+    "title": "Quick Sort",
+    "difficulty": "Medium", "tags": ["sorting", "divide-and-conquer"],
+    "statement": "Implement Quick Sort. Print the sorted array. (Use last-element-as-pivot partitioning.)",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Sorted array.",
+    "examples": [{"input": "6\n4 6 2 5 7 9", "output": "2 4 5 6 7 9"}],
+    "samples": [{"stdin": "6\n4 6 2 5 7 9", "expected": "2 4 5 6 7 9"}],
+    "tests": [
+      {"stdin": "6\n4 6 2 5 7 9", "expected": "2 4 5 6 7 9"},
+      {"stdin": "1\n5", "expected": "5"},
+      {"stdin": "4\n4 3 2 1", "expected": "1 2 3 4"},
+      {"stdin": "7\n3 -1 0 7 2 -5 10", "expected": "-5 -1 0 2 3 7 10"},
+      {"stdin": "5\n5 5 5 5 5", "expected": "5 5 5 5 5"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static int partition(int[] a, int lo, int hi) {\n        // choose pivot = a[hi]; place smaller elements to left\n        return 0;\n    }\n    static void quick(int[] a, int lo, int hi) {\n        // base: lo < hi; partition; recurse left and right\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        quick(a, 0, n - 1);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\n        System.out.println(sb);\n    }\n}",
+    "hints": [
+      "Partition: pick pivot, rearrange so that everything < pivot is to its left, everything > pivot is to its right. Return pivot's final index.",
+      "Recurse on left and right halves separately.",
+      "On already-sorted input with last-element pivot, QS degrades to O(N²). Randomized pivot fixes it."
+    ],
+    "approaches": [{
+      "name": "Lomuto partition (pivot = a[hi])", "time": "O(N log N) avg, O(N²) worst", "space": "O(log N) stack avg",
+      "code": "static int partition(int[] a, int lo, int hi) {\n    int pivot = a[hi];\n    int i = lo - 1;\n    for (int j = lo; j < hi; j++) {\n        if (a[j] <= pivot) { i++; int t = a[i]; a[i] = a[j]; a[j] = t; }\n    }\n    int t = a[i+1]; a[i+1] = a[hi]; a[hi] = t;\n    return i + 1;\n}\nstatic void quick(int[] a, int lo, int hi) {\n    if (lo < hi) {\n        int p = partition(a, lo, hi);\n        quick(a, lo, p - 1);\n        quick(a, p + 1, hi);\n    }\n}"
+    }],
+    "conceptIds": ["sorting-comparison", "divide-conquer"]
+  },
+
+  "pat-4-repnum": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 4: Repeating Numbers (1, 22, 333)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i (1-indexed) prints the digit i, i times, with no separators.",
+    "inputFormat": "Integer N (1 <= N <= 9).",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "5", "output": "1\n22\n333\n4444\n55555"}],
+    "samples": [{"stdin": "5", "expected": "1\n22\n333\n4444\n55555"}],
+    "tests": [
+      {"stdin": "5", "expected": "1\n22\n333\n4444\n55555"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "3", "expected": "1\n22\n333"},
+      {"stdin": "9", "expected": "1\n22\n333\n4444\n55555\n666666\n7777777\n88888888\n999999999"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Outer loop i goes 1..N. Inner loop runs i times.",
+      "Inside the inner loop, print `i` (the row number) — not the column counter."
+    ],
+    "approaches": [{
+      "name": "Print row index i times", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= i; j++) System.out.print(i);\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-6-invnum": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 6: Inverted Number Triangle (12345, 1234)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i prints the numbers 1 through (N-i+1), no separators. Row count goes from N down to 1.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "5", "output": "12345\n1234\n123\n12\n1"}],
+    "samples": [{"stdin": "5", "expected": "12345\n1234\n123\n12\n1"}],
+    "tests": [
+      {"stdin": "5", "expected": "12345\n1234\n123\n12\n1"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "3", "expected": "123\n12\n1"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Outer loop i from 1 to N. Inner loop j from 1 to (N - i + 1).",
+      "Print j inside the inner loop."
+    ],
+    "approaches": [{
+      "name": "Decreasing inner range", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= n - i + 1; j++) System.out.print(j);\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-8-invpyramid": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 8: Inverted Star Pyramid (centered)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Top row is the widest, with (2N - 1) stars. Each subsequent row removes one star from each side. Row i has (i-1) leading spaces and (2*(N-i)+1) stars.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "4", "output": "*******\n *****\n  ***\n   *"}],
+    "samples": [{"stdin": "4", "expected": "*******\n *****\n  ***\n   *"}],
+    "tests": [
+      {"stdin": "4", "expected": "*******\n *****\n  ***\n   *"},
+      {"stdin": "1", "expected": "*"},
+      {"stdin": "3", "expected": "*****\n ***\n  *"},
+      {"stdin": "5", "expected": "*********\n *******\n  *****\n   ***\n    *"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Three sub-loops per row: leading spaces, stars, newline.",
+      "Row i: leading spaces = i - 1, stars = 2*(N - i) + 1."
+    ],
+    "approaches": [{
+      "name": "Spaces shrink up, stars shrink down", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int s = 1; s <= i - 1; s++) System.out.print(\" \");\n    for (int st = 1; st <= 2*(n - i) + 1; st++) System.out.print(\"*\");\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-14-letter-tri": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 14: Letter Triangle (A, AB, ABC)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i prints the letters A through ('A' + i - 1) with no separators.",
+    "inputFormat": "Integer N (1 <= N <= 26).",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "5", "output": "A\nAB\nABC\nABCD\nABCDE"}],
+    "samples": [{"stdin": "5", "expected": "A\nAB\nABC\nABCD\nABCDE"}],
+    "tests": [
+      {"stdin": "5", "expected": "A\nAB\nABC\nABCD\nABCDE"},
+      {"stdin": "1", "expected": "A"},
+      {"stdin": "3", "expected": "A\nAB\nABC"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Loop j from 0 to i-1, print the char (char)('A' + j).",
+      "char arithmetic: 'A' + 1 = 'B', 'A' + 2 = 'C', etc."
+    ],
+    "approaches": [{
+      "name": "Char arithmetic", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 0; j < i; j++) System.out.print((char) ('A' + j));\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-15-inv-letter-tri": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 15: Inverted Letter Triangle (ABCDE, ABCD)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i prints the letters A through ('A' + N - i). Letters per row decreases.",
+    "inputFormat": "Integer N (1 <= N <= 26).",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "5", "output": "ABCDE\nABCD\nABC\nAB\nA"}],
+    "samples": [{"stdin": "5", "expected": "ABCDE\nABCD\nABC\nAB\nA"}],
+    "tests": [
+      {"stdin": "5", "expected": "ABCDE\nABCD\nABC\nAB\nA"},
+      {"stdin": "1", "expected": "A"},
+      {"stdin": "3", "expected": "ABC\nAB\nA"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Inner loop runs (N - i + 1) times.",
+      "Print (char)('A' + j) where j = 0..(N-i)."
+    ],
+    "approaches": [{
+      "name": "Decreasing inner letters", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 0; j <= n - i; j++) System.out.print((char) ('A' + j));\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-16-rep-letter": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 16: Repeating Letter Triangle (A, BB, CCC)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i prints the letter ('A' + i - 1) repeated i times.",
+    "inputFormat": "Integer N (1 <= N <= 26).",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "5", "output": "A\nBB\nCCC\nDDDD\nEEEEE"}],
+    "samples": [{"stdin": "5", "expected": "A\nBB\nCCC\nDDDD\nEEEEE"}],
+    "tests": [
+      {"stdin": "5", "expected": "A\nBB\nCCC\nDDDD\nEEEEE"},
+      {"stdin": "1", "expected": "A"},
+      {"stdin": "3", "expected": "A\nBB\nCCC"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Compute the row's letter once: ch = (char)('A' + i - 1).",
+      "Inner loop runs i times, printing ch each time."
+    ],
+    "approaches": [{
+      "name": "Per-row constant char", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    char ch = (char) ('A' + i - 1);\n    for (int j = 1; j <= i; j++) System.out.print(ch);\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-17-sym-letter": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 17: Symmetric Letter Pyramid (ABCBA)",
+    "difficulty": "Medium", "tags": ["patterns"],
+    "statement": "Row i (1-indexed) has (N - i) leading spaces, then (2i - 1) letters: starts at 'A', climbs to ('A' + i - 1) at the middle, then descends back to 'A'.",
+    "inputFormat": "Integer N (1 <= N <= 13).",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "4", "output": "   A\n  ABA\n ABCBA\nABCDCBA"}],
+    "samples": [{"stdin": "4", "expected": "   A\n  ABA\n ABCBA\nABCDCBA"}],
+    "tests": [
+      {"stdin": "4", "expected": "   A\n  ABA\n ABCBA\nABCDCBA"},
+      {"stdin": "1", "expected": "A"},
+      {"stdin": "3", "expected": "  A\n ABA\nABCBA"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Three loops per row: leading spaces (N - i), letters going up to peak, letters coming down.",
+      "Peak letter at row i is ('A' + i - 1). Increment then decrement.",
+      "Total letters per row = 2i - 1 (odd)."
+    ],
+    "approaches": [{
+      "name": "Up-then-down character",
+      "time": "O(N²)", "space": "O(1)",
+      "explanation": "Walk a counter ch from 'A' upward, then back down at the middle.",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int s = 1; s <= n - i; s++) System.out.print(\" \");\n    char ch = 'A';\n    int total = 2 * i - 1;\n    int mid = (total + 1) / 2;  // 1-indexed middle position\n    for (int j = 1; j <= total; j++) {\n        System.out.print(ch);\n        if (j < mid) ch++;\n        else ch--;\n    }\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-18-rev-letter": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 18: Reverse Letter Triangle (E, DE, CDE)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i prints letters from ('A' + N - i) up to ('A' + N - 1). The starting letter shifts left each row, ending at the same final letter.",
+    "inputFormat": "Integer N (1 <= N <= 26).",
+    "outputFormat": "N rows.",
+    "examples": [{"input": "5", "output": "E\nDE\nCDE\nBCDE\nABCDE"}],
+    "samples": [{"stdin": "5", "expected": "E\nDE\nCDE\nBCDE\nABCDE"}],
+    "tests": [
+      {"stdin": "5", "expected": "E\nDE\nCDE\nBCDE\nABCDE"},
+      {"stdin": "1", "expected": "A"},
+      {"stdin": "3", "expected": "C\nBC\nABC"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Row i has i letters. The first letter is at offset (N - i), the last is at (N - 1).",
+      "Loop j from (N - i) to (N - 1); print (char)('A' + j)."
+    ],
+    "approaches": [{
+      "name": "Sliding start position",
+      "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = n - i; j <= n - 1; j++) {\n        System.out.print((char) ('A' + j));\n    }\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-19-sym-stars": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 19: Symmetric Stars (top wide, narrow middle, mirror)",
+    "difficulty": "Medium", "tags": ["patterns"],
+    "statement": "Top half: row i (1..N) prints (N - i + 1) stars, then 2*(i - 1) spaces, then (N - i + 1) stars. Bottom half mirrors the top. Total rows: 2N. Width per row: 2N.",
+    "inputFormat": "Integer N (1 <= N <= 20).",
+    "outputFormat": "2N rows.",
+    "examples": [{"input": "5", "output": "**********\n****  ****\n***    ***\n**      **\n*        *\n*        *\n**      **\n***    ***\n****  ****\n**********"}],
+    "samples": [{"stdin": "5", "expected": "**********\n****  ****\n***    ***\n**      **\n*        *\n*        *\n**      **\n***    ***\n****  ****\n**********"}],
+    "tests": [
+      {"stdin": "5", "expected": "**********\n****  ****\n***    ***\n**      **\n*        *\n*        *\n**      **\n***    ***\n****  ****\n**********"},
+      {"stdin": "1", "expected": "**\n**"},
+      {"stdin": "3", "expected": "******\n**  **\n*    *\n*    *\n**  **\n******"},
+      {"stdin": "2", "expected": "****\n*  *\n*  *\n****"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Top half: row i prints (N - i + 1) stars, then 2*(i - 1) spaces, then (N - i + 1) stars.",
+      "Total width per row stays constant at 2N.",
+      "Bottom half is the same loop but with i going from N down to 1."
+    ],
+    "approaches": [{
+      "name": "Two halves, mirror each other",
+      "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 0; j < n - i + 1; j++) System.out.print(\"*\");\n    for (int j = 0; j < 2 * (i - 1); j++) System.out.print(\" \");\n    for (int j = 0; j < n - i + 1; j++) System.out.print(\"*\");\n    System.out.println();\n}\nfor (int i = n; i >= 1; i--) {\n    for (int j = 0; j < n - i + 1; j++) System.out.print(\"*\");\n    for (int j = 0; j < 2 * (i - 1); j++) System.out.print(\" \");\n    for (int j = 0; j < n - i + 1; j++) System.out.print(\"*\");\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-22-concentric": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 22: Concentric Numbers (symmetric square)",
+    "difficulty": "Medium", "tags": ["patterns"],
+    "statement": "Print a (2N-1) by (2N-1) grid of numbers. Each cell's value is N minus its minimum distance to any edge of the grid. The result is concentric rings: outer ring all N, next ring N-1, ..., center is 1. Values within a row are space-separated.",
+    "inputFormat": "Integer N (1 <= N <= 9).",
+    "outputFormat": "(2N - 1) rows, each with (2N - 1) values space-separated.",
+    "examples": [{"input": "4", "output": "4 4 4 4 4 4 4\n4 3 3 3 3 3 4\n4 3 2 2 2 3 4\n4 3 2 1 2 3 4\n4 3 2 2 2 3 4\n4 3 3 3 3 3 4\n4 4 4 4 4 4 4"}],
+    "samples": [{"stdin": "4", "expected": "4 4 4 4 4 4 4\n4 3 3 3 3 3 4\n4 3 2 2 2 3 4\n4 3 2 1 2 3 4\n4 3 2 2 2 3 4\n4 3 3 3 3 3 4\n4 4 4 4 4 4 4"}],
+    "tests": [
+      {"stdin": "4", "expected": "4 4 4 4 4 4 4\n4 3 3 3 3 3 4\n4 3 2 2 2 3 4\n4 3 2 1 2 3 4\n4 3 2 2 2 3 4\n4 3 3 3 3 3 4\n4 4 4 4 4 4 4"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "2", "expected": "2 2 2\n2 1 2\n2 2 2"},
+      {"stdin": "3", "expected": "3 3 3 3 3\n3 2 2 2 3\n3 2 1 2 3\n3 2 2 2 3\n3 3 3 3 3"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Grid size: width = 2N - 1.",
+      "For cell (i, j) (0-indexed), distance from edges = min(i, j, width-1-i, width-1-j).",
+      "Cell value = N - distance. Outer ring has dist 0 = value N. Center has max dist = N - 1, value 1.",
+      "Print values space-separated; no trailing space at end of row."
+    ],
+    "approaches": [{
+      "name": "Distance-from-edge formula",
+      "time": "O(N²)", "space": "O(1)",
+      "explanation": "Each cell is N minus its min distance to any side of the grid. That formula creates concentric rings of equal value.",
+      "code": "int width = 2 * n - 1;\nStringBuilder sb = new StringBuilder();\nfor (int i = 0; i < width; i++) {\n    for (int j = 0; j < width; j++) {\n        int dist = Math.min(Math.min(i, j), Math.min(width - 1 - i, width - 1 - j));\n        if (j > 0) sb.append(' ');\n        sb.append(n - dist);\n    }\n    sb.append('\\n');\n}\nSystem.out.print(sb);"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-square": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 1: N x N Square of stars",
+    "difficulty": "Easy", "tags": ["patterns", "loops"],
+    "statement": "Read an integer N. Print an N x N grid of `*` characters (each row on its own line).",
+    "inputFormat": "A single integer N (1 <= N <= 20).",
+    "outputFormat": "N lines, each with N asterisks.",
+    "examples": [
+      {"input": "3", "output": "***\n***\n***"},
+      {"input": "1", "output": "*"}
+    ],
+    "samples": [{"stdin": "3", "expected": "***\n***\n***"}],
+    "tests": [
+      {"stdin": "3", "expected": "***\n***\n***"},
+      {"stdin": "1", "expected": "*"},
+      {"stdin": "5", "expected": "*****\n*****\n*****\n*****\n*****"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // print N x N grid of '*'\n    }\n}",
+    "hints": [
+      "Use two nested loops — outer for rows, inner for columns.",
+      "Inside the inner loop, print `*` (no newline). After the inner loop finishes, print a newline.",
+      "System.out.print(\"*\") vs System.out.println(\"*\") — println adds a newline."
+    ],
+    "approaches": [
+      {
+        "name": "Nested loops",
+        "time": "O(N²)", "space": "O(1)",
+        "explanation": "Two nested loops. Outer controls rows, inner prints one row of stars.",
+        "code": "for (int i = 0; i < n; i++) {\n    for (int j = 0; j < n; j++) {\n        System.out.print(\"*\");\n    }\n    System.out.println();\n}"
+      }
+    ],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-rtri": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 2: Right Half Pyramid (stars)",
+    "difficulty": "Easy", "tags": ["patterns", "loops"],
+    "statement": "Print a right-angled triangle of `*`. Row i (1-indexed) has i stars.",
+    "inputFormat": "A single integer N.",
+    "outputFormat": "N lines; row i has i stars.",
+    "examples": [{"input": "4", "output": "*\n**\n***\n****"}],
+    "samples": [{"stdin": "4", "expected": "*\n**\n***\n****"}],
+    "tests": [
+      {"stdin": "4", "expected": "*\n**\n***\n****"},
+      {"stdin": "1", "expected": "*"},
+      {"stdin": "5", "expected": "*\n**\n***\n****\n*****"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Inner loop runs from 1 to i (or j <= i).",
+      "The key insight: stars per row = current row index."
+    ],
+    "approaches": [{
+      "name": "Nested loops", "time": "O(N²)", "space": "O(1)",
+      "explanation": "Row i prints i stars.",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= i; j++) System.out.print(\"*\");\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-numtri": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 3: Number Triangle",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i prints numbers 1 2 ... i (concatenated with no separators).",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N lines, row i = \"12...i\".",
+    "examples": [{"input": "4", "output": "1\n12\n123\n1234"}],
+    "samples": [{"stdin": "4", "expected": "1\n12\n123\n1234"}],
+    "tests": [
+      {"stdin": "4", "expected": "1\n12\n123\n1234"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "5", "expected": "1\n12\n123\n1234\n12345"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Replace `*` with `j` in the previous pattern."],
+    "approaches": [{
+      "name": "Direct", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= i; j++) System.out.print(j);\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-invrtri": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 5: Inverted Right Half Pyramid",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Row i (1-indexed) prints (N - i + 1) stars.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N lines, decreasing star count.",
+    "examples": [{"input": "4", "output": "****\n***\n**\n*"}],
+    "samples": [{"stdin": "4", "expected": "****\n***\n**\n*"}],
+    "tests": [
+      {"stdin": "4", "expected": "****\n***\n**\n*"},
+      {"stdin": "1", "expected": "*"},
+      {"stdin": "3", "expected": "***\n**\n*"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Stars per row = n - i + 1, or loop j from i to n."],
+    "approaches": [{
+      "name": "Direct", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int j = i; j <= n; j++) System.out.print(\"*\");\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "pat-pyramid": {
+    "step": 1, "section": "1.2", "sectionTitle": "Patterns",
+    "title": "Pattern 7: Star Pyramid (centered)",
+    "difficulty": "Easy", "tags": ["patterns"],
+    "statement": "Print a centered star pyramid: row i has (n-i) leading spaces and (2i-1) stars.",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N rows, increasing stars centered via leading spaces.",
+    "examples": [{"input": "4", "output": "   *\n  ***\n *****\n*******"}],
+    "samples": [{"stdin": "4", "expected": "   *\n  ***\n *****\n*******"}],
+    "tests": [
+      {"stdin": "4", "expected": "   *\n  ***\n *****\n*******"},
+      {"stdin": "1", "expected": "*"},
+      {"stdin": "3", "expected": "  *\n ***\n*****"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Think of each row as three parts: leading spaces, stars, (optional trailing spaces).",
+      "Row i: spaces = n - i, stars = 2i - 1."
+    ],
+    "approaches": [{
+      "name": "Three sub-loops", "time": "O(N²)", "space": "O(1)",
+      "code": "for (int i = 1; i <= n; i++) {\n    for (int s = 1; s <= n - i; s++) System.out.print(\" \");\n    for (int st = 1; st <= 2*i - 1; st++) System.out.print(\"*\");\n    System.out.println();\n}"
+    }],
+    "conceptIds": ["pattern-printing"]
+  },
+
+  "count-digits": {
+    "step": 1, "section": "1.4", "sectionTitle": "Basic Math",
+    "title": "Count Digits",
+    "difficulty": "Easy", "tags": ["math", "digit-extraction"],
+    "statement": "Given a positive integer N, return the count of its digits.",
+    "inputFormat": "A single integer N (1 <= N <= 10^9).",
+    "outputFormat": "One integer — the digit count.",
+    "examples": [
+      {"input": "7789", "output": "4", "explanation": "7789 has 4 digits."},
+      {"input": "5", "output": "1"}
+    ],
+    "samples": [{"stdin": "7789", "expected": "4"}, {"stdin": "5", "expected": "1"}],
+    "tests": [
+      {"stdin": "7789", "expected": "4"},
+      {"stdin": "5", "expected": "1"},
+      {"stdin": "10", "expected": "2"},
+      {"stdin": "1000000000", "expected": "10"},
+      {"stdin": "100", "expected": "3"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // count and print\n    }\n}",
+    "hints": [
+      "How many times can you divide N by 10 before it becomes 0?",
+      "while (n > 0) { n /= 10; count++; }",
+      "Or use (int) Math.log10(n) + 1 for O(1)."
+    ],
+    "approaches": [
+      {
+        "name": "Iterative (divide by 10)",
+        "time": "O(log₁₀ N)", "space": "O(1)",
+        "explanation": "Strip one digit per iteration.",
+        "code": "int count = 0;\nwhile (n > 0) { count++; n /= 10; }\nSystem.out.println(count);"
+      },
+      {
+        "name": "Logarithmic",
+        "time": "O(1)", "space": "O(1)",
+        "explanation": "log₁₀(N) floor + 1 equals digit count.",
+        "code": "System.out.println((int) Math.log10(n) + 1);"
+      }
+    ],
+    "conceptIds": ["digit-extraction"]
+  },
+
+  "reverse-number": {
+    "step": 1, "section": "1.4", "sectionTitle": "Basic Math",
+    "title": "Reverse a Number",
+    "difficulty": "Easy", "tags": ["math", "digit-extraction"],
+    "statement": "Given N, print N with its digits reversed. Drop leading zeros in the reversed form (e.g., 120 -> 21).",
+    "inputFormat": "Integer N (0 <= N <= 10^9).",
+    "outputFormat": "The reversed integer.",
+    "examples": [
+      {"input": "1234", "output": "4321"},
+      {"input": "120", "output": "21", "explanation": "Reversed '021' -> 21."}
+    ],
+    "samples": [{"stdin": "1234", "expected": "4321"}, {"stdin": "120", "expected": "21"}],
+    "tests": [
+      {"stdin": "1234", "expected": "4321"},
+      {"stdin": "120", "expected": "21"},
+      {"stdin": "7", "expected": "7"},
+      {"stdin": "1000", "expected": "1"},
+      {"stdin": "9876543", "expected": "3456789"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // reverse and print\n    }\n}",
+    "hints": [
+      "Build the reversed number: rev = rev * 10 + (n % 10), then n /= 10.",
+      "Because we print an int, leading zeros of the reversed form disappear naturally."
+    ],
+    "approaches": [{
+      "name": "Digit-by-digit reversal", "time": "O(log N)", "space": "O(1)",
+      "explanation": "Pull last digit via %10, append to rev, divide n by 10.",
+      "code": "int rev = 0;\nwhile (n > 0) {\n    rev = rev * 10 + n % 10;\n    n /= 10;\n}\nSystem.out.println(rev);"
+    }],
+    "conceptIds": ["digit-extraction"]
+  },
+
+  "check-palindrome": {
+    "step": 1, "section": "1.4", "sectionTitle": "Basic Math",
+    "title": "Palindrome Number",
+    "difficulty": "Easy", "tags": ["math"],
+    "statement": "Return whether N equals its reverse. Print 'true' or 'false'.",
+    "inputFormat": "Integer N (0 <= N <= 10^9).",
+    "outputFormat": "'true' or 'false'.",
+    "examples": [
+      {"input": "121", "output": "true"},
+      {"input": "123", "output": "false"}
+    ],
+    "samples": [{"stdin": "121", "expected": "true"}, {"stdin": "123", "expected": "false"}],
+    "tests": [
+      {"stdin": "121", "expected": "true"},
+      {"stdin": "123", "expected": "false"},
+      {"stdin": "0", "expected": "true"},
+      {"stdin": "11", "expected": "true"},
+      {"stdin": "10", "expected": "false"},
+      {"stdin": "1221", "expected": "true"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // print true or false\n    }\n}",
+    "hints": [
+      "Reverse the number and compare to the original.",
+      "Save the original in a variable before reversing — because reversing mutates it."
+    ],
+    "approaches": [{
+      "name": "Reverse and compare", "time": "O(log N)", "space": "O(1)",
+      "code": "int orig = n, rev = 0;\nwhile (n > 0) { rev = rev*10 + n%10; n /= 10; }\nSystem.out.println(rev == orig ? \"true\" : \"false\");"
+    }],
+    "conceptIds": ["digit-extraction"]
+  },
+
+  "gcd": {
+    "step": 1, "section": "1.4", "sectionTitle": "Basic Math",
+    "title": "GCD of Two Numbers",
+    "difficulty": "Easy", "tags": ["math", "euclidean"],
+    "statement": "Given two positive integers A and B, print their greatest common divisor.",
+    "inputFormat": "Two space-separated integers A and B.",
+    "outputFormat": "One integer — gcd(A, B).",
+    "examples": [
+      {"input": "12 18", "output": "6"},
+      {"input": "7 13", "output": "1"}
+    ],
+    "samples": [{"stdin": "12 18", "expected": "6"}, {"stdin": "7 13", "expected": "1"}],
+    "tests": [
+      {"stdin": "12 18", "expected": "6"},
+      {"stdin": "7 13", "expected": "1"},
+      {"stdin": "100 75", "expected": "25"},
+      {"stdin": "1 1", "expected": "1"},
+      {"stdin": "1000000 2", "expected": "2"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt(), b = sc.nextInt();\n        // print gcd\n    }\n}",
+    "hints": [
+      "Euclidean algorithm: gcd(a, b) = gcd(b, a % b) until b == 0.",
+      "When b becomes 0, the answer is a."
+    ],
+    "approaches": [
+      {
+        "name": "Brute force", "time": "O(min(A,B))", "space": "O(1)",
+        "explanation": "Try every divisor from min(a,b) down to 1.",
+        "code": "int g = 1;\nfor (int i = Math.min(a,b); i >= 1; i--) {\n    if (a % i == 0 && b % i == 0) { g = i; break; }\n}\nSystem.out.println(g);"
+      },
+      {
+        "name": "Euclidean (optimal)", "time": "O(log(min(A,B)))", "space": "O(1)",
+        "explanation": "gcd(a,b) = gcd(b, a mod b). Terminates when b == 0.",
+        "code": "while (b != 0) { int t = b; b = a % b; a = t; }\nSystem.out.println(a);"
+      }
+    ],
+    "conceptIds": ["euclidean-gcd"]
+  },
+
+  "armstrong": {
+    "step": 1, "section": "1.4", "sectionTitle": "Basic Math",
+    "title": "Armstrong Number",
+    "difficulty": "Easy", "tags": ["math", "digit-extraction"],
+    "statement": "An Armstrong (narcissistic) 3-digit number equals the sum of the cubes of its digits (e.g., 153 = 1³+5³+3³). Given a 3-digit N, print 'true' if it is Armstrong, else 'false'.",
+    "inputFormat": "Integer N (100 <= N <= 999).",
+    "outputFormat": "'true' or 'false'.",
+    "examples": [
+      {"input": "153", "output": "true"},
+      {"input": "123", "output": "false"}
+    ],
+    "samples": [{"stdin": "153", "expected": "true"}, {"stdin": "123", "expected": "false"}],
+    "tests": [
+      {"stdin": "153", "expected": "true"},
+      {"stdin": "123", "expected": "false"},
+      {"stdin": "371", "expected": "true"},
+      {"stdin": "407", "expected": "true"},
+      {"stdin": "999", "expected": "false"},
+      {"stdin": "100", "expected": "false"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Extract each digit via % 10 then / 10.",
+      "Sum the cubes; compare to the original."
+    ],
+    "approaches": [{
+      "name": "Digit extraction + sum of cubes", "time": "O(log N)", "space": "O(1)",
+      "code": "int orig = n, sum = 0;\nwhile (n > 0) { int d = n % 10; sum += d*d*d; n /= 10; }\nSystem.out.println(sum == orig ? \"true\" : \"false\");"
+    }],
+    "conceptIds": ["digit-extraction"]
+  },
+
+  "rec-print-n": {
+    "step": 1, "section": "1.5", "sectionTitle": "Basic Recursion",
+    "title": "Print 1 to N using Recursion",
+    "difficulty": "Easy", "tags": ["recursion"],
+    "statement": "Using recursion (no loops), print integers 1 to N space-separated on one line.",
+    "inputFormat": "Integer N (1 <= N <= 1000).",
+    "outputFormat": "'1 2 3 ... N' on one line.",
+    "examples": [{"input": "5", "output": "1 2 3 4 5"}],
+    "samples": [{"stdin": "5", "expected": "1 2 3 4 5"}],
+    "tests": [
+      {"stdin": "5", "expected": "1 2 3 4 5"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "3", "expected": "1 2 3"},
+      {"stdin": "10", "expected": "1 2 3 4 5 6 7 8 9 10"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static StringBuilder out = new StringBuilder();\n    static void print(int i, int n) {\n        // your recursion\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        print(1, n);\n        System.out.println(out.toString().trim());\n    }\n}",
+    "hints": [
+      "Base case: if i > n, return.",
+      "Recursive case: append i (and a space) to `out`, then call print(i+1, n)."
+    ],
+    "approaches": [{
+      "name": "Tail-style recursion", "time": "O(N)", "space": "O(N) stack",
+      "code": "static void print(int i, int n) {\n    if (i > n) return;\n    out.append(i).append(' ');\n    print(i + 1, n);\n}"
+    }],
+    "conceptIds": ["recursion-basics"]
+  },
+
+  "rec-sum-n": {
+    "step": 1, "section": "1.5", "sectionTitle": "Basic Recursion",
+    "title": "Sum of first N (recursive)",
+    "difficulty": "Easy", "tags": ["recursion"],
+    "statement": "Using recursion, compute 1 + 2 + ... + N.",
+    "inputFormat": "Integer N (0 <= N <= 10000).",
+    "outputFormat": "The sum.",
+    "examples": [{"input": "5", "output": "15"}],
+    "samples": [{"stdin": "5", "expected": "15"}],
+    "tests": [
+      {"stdin": "5", "expected": "15"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "0", "expected": "0"},
+      {"stdin": "100", "expected": "5050"},
+      {"stdin": "10", "expected": "55"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static long sum(int n) {\n        // your recursion\n        return 0;\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(sum(n));\n    }\n}",
+    "hints": [
+      "Base: sum(0) = 0.",
+      "Recursive: sum(n) = n + sum(n-1)."
+    ],
+    "approaches": [{
+      "name": "Functional recursion", "time": "O(N)", "space": "O(N) stack",
+      "code": "static long sum(int n) {\n    if (n == 0) return 0;\n    return n + sum(n - 1);\n}"
+    }],
+    "conceptIds": ["recursion-basics"]
+  },
+
+  "rec-factorial": {
+    "step": 1, "section": "1.5", "sectionTitle": "Basic Recursion",
+    "title": "Factorial (recursive)",
+    "difficulty": "Easy", "tags": ["recursion"],
+    "statement": "Compute N! recursively. Assume N <= 20 (fits in long).",
+    "inputFormat": "Integer N.",
+    "outputFormat": "N!",
+    "examples": [{"input": "5", "output": "120"}],
+    "samples": [{"stdin": "5", "expected": "120"}],
+    "tests": [
+      {"stdin": "5", "expected": "120"},
+      {"stdin": "0", "expected": "1"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "10", "expected": "3628800"},
+      {"stdin": "20", "expected": "2432902008176640000"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static long fact(int n) {\n        // your code\n        return 0;\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(fact(n));\n    }\n}",
+    "hints": [
+      "Base: fact(0) = fact(1) = 1.",
+      "Recursive: fact(n) = n * fact(n-1)."
+    ],
+    "approaches": [{
+      "name": "Recursion", "time": "O(N)", "space": "O(N) stack",
+      "code": "static long fact(int n) {\n    if (n <= 1) return 1;\n    return n * fact(n - 1);\n}"
+    }],
+    "conceptIds": ["recursion-basics"]
+  },
+
+  "rec-reverse-array": {
+    "step": 1, "section": "1.5", "sectionTitle": "Basic Recursion",
+    "title": "Reverse Array (recursive)",
+    "difficulty": "Easy", "tags": ["recursion", "two-pointers"],
+    "statement": "Reverse an array in-place using recursion. Print the result space-separated.",
+    "inputFormat": "Line 1: N. Line 2: N integers space-separated.",
+    "outputFormat": "The reversed array space-separated.",
+    "examples": [{"input": "5\n1 2 3 4 5", "output": "5 4 3 2 1"}],
+    "samples": [{"stdin": "5\n1 2 3 4 5", "expected": "5 4 3 2 1"}],
+    "tests": [
+      {"stdin": "5\n1 2 3 4 5", "expected": "5 4 3 2 1"},
+      {"stdin": "1\n7", "expected": "7"},
+      {"stdin": "4\n10 20 30 40", "expected": "40 30 20 10"},
+      {"stdin": "6\n-1 -2 0 3 5 9", "expected": "9 5 3 0 -2 -1"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void reverse(int[] a, int l, int r) {\n        // your recursion\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        reverse(a, 0, n - 1);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\n        System.out.println(sb);\n    }\n}",
+    "hints": [
+      "Swap a[l] with a[r], then recurse on (l+1, r-1).",
+      "Base: l >= r (nothing to swap)."
+    ],
+    "approaches": [{
+      "name": "Two-pointer recursion", "time": "O(N)", "space": "O(N/2) stack",
+      "code": "static void reverse(int[] a, int l, int r) {\n    if (l >= r) return;\n    int t = a[l]; a[l] = a[r]; a[r] = t;\n    reverse(a, l + 1, r - 1);\n}"
+    }],
+    "conceptIds": ["recursion-basics", "two-pointers"]
+  },
+
+  "rec-palindrome-str": {
+    "step": 1, "section": "1.5", "sectionTitle": "Basic Recursion",
+    "title": "Palindrome String (recursive)",
+    "difficulty": "Easy", "tags": ["recursion", "strings"],
+    "statement": "Check whether a lowercase string is a palindrome using recursion. Print 'true' or 'false'.",
+    "inputFormat": "A single string of lowercase letters.",
+    "outputFormat": "'true' or 'false'.",
+    "examples": [{"input": "madam", "output": "true"}, {"input": "hello", "output": "false"}],
+    "samples": [{"stdin": "madam", "expected": "true"}, {"stdin": "hello", "expected": "false"}],
+    "tests": [
+      {"stdin": "madam", "expected": "true"},
+      {"stdin": "hello", "expected": "false"},
+      {"stdin": "a", "expected": "true"},
+      {"stdin": "abba", "expected": "true"},
+      {"stdin": "abcba", "expected": "true"},
+      {"stdin": "abc", "expected": "false"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static boolean isPal(String s, int l, int r) {\n        // your recursion\n        return false;\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        String s = sc.next();\n        System.out.println(isPal(s, 0, s.length() - 1));\n    }\n}",
+    "hints": [
+      "If l >= r, return true.",
+      "If s.charAt(l) != s.charAt(r), return false.",
+      "Else recurse (l+1, r-1)."
+    ],
+    "approaches": [{
+      "name": "Two-pointer recursion", "time": "O(N)", "space": "O(N/2) stack",
+      "code": "static boolean isPal(String s, int l, int r) {\n    if (l >= r) return true;\n    if (s.charAt(l) != s.charAt(r)) return false;\n    return isPal(s, l + 1, r - 1);\n}"
+    }],
+    "conceptIds": ["recursion-basics"]
+  },
+
+  "rec-fibonacci": {
+    "step": 1, "section": "1.5", "sectionTitle": "Basic Recursion",
+    "title": "Fibonacci (recursive)",
+    "difficulty": "Easy", "tags": ["recursion", "fibonacci"],
+    "statement": "Compute the Nth Fibonacci number. F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2). Use recursion.",
+    "inputFormat": "Integer N (0 <= N <= 30).",
+    "outputFormat": "F(N).",
+    "examples": [{"input": "5", "output": "5"}, {"input": "10", "output": "55"}],
+    "samples": [{"stdin": "5", "expected": "5"}, {"stdin": "10", "expected": "55"}],
+    "tests": [
+      {"stdin": "0", "expected": "0"},
+      {"stdin": "1", "expected": "1"},
+      {"stdin": "2", "expected": "1"},
+      {"stdin": "5", "expected": "5"},
+      {"stdin": "10", "expected": "55"},
+      {"stdin": "20", "expected": "6765"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static long fib(int n) {\n        // your recursion\n        return 0;\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(fib(n));\n    }\n}",
+    "hints": [
+      "Base cases: fib(0)=0, fib(1)=1.",
+      "Recursive: fib(n) = fib(n-1) + fib(n-2).",
+      "Note: plain recursion is O(2^N). DP/memoization makes it O(N)."
+    ],
+    "approaches": [
+      {
+        "name": "Plain recursion", "time": "O(2^N)", "space": "O(N) stack",
+        "code": "static long fib(int n) {\n    if (n < 2) return n;\n    return fib(n - 1) + fib(n - 2);\n}"
+      },
+      {
+        "name": "Memoized (DP)", "time": "O(N)", "space": "O(N)",
+        "explanation": "Cache results; each fib(k) computed once.",
+        "code": "static long[] memo;\nstatic long fib(int n) {\n    if (n < 2) return n;\n    if (memo[n] != -1) return memo[n];\n    return memo[n] = fib(n-1) + fib(n-2);\n}"
+      }
+    ],
+    "conceptIds": ["recursion-basics", "memoization"]
+  },
+
+  "sort-selection": {
+    "step": 2, "section": "2.1", "sectionTitle": "Sorting",
+    "title": "Selection Sort",
+    "difficulty": "Easy", "tags": ["sorting"],
+    "statement": "Implement selection sort on the given array. Print the sorted array ascending, space-separated.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Sorted array, space-separated.",
+    "examples": [{"input": "5\n64 25 12 22 11", "output": "11 12 22 25 64"}],
+    "samples": [{"stdin": "5\n64 25 12 22 11", "expected": "11 12 22 25 64"}],
+    "tests": [
+      {"stdin": "5\n64 25 12 22 11", "expected": "11 12 22 25 64"},
+      {"stdin": "1\n42", "expected": "42"},
+      {"stdin": "4\n5 5 5 5", "expected": "5 5 5 5"},
+      {"stdin": "6\n3 -1 0 7 2 -5", "expected": "-5 -1 0 2 3 7"},
+      {"stdin": "3\n3 2 1", "expected": "1 2 3"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void selectionSort(int[] a) {\n        // your code\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        selectionSort(a);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\n        System.out.println(sb);\n    }\n}",
+    "hints": [
+      "For each position i, find the minimum element in a[i..n-1] and swap it into a[i].",
+      "Two loops: outer from 0 to n-1, inner searches for min."
+    ],
+    "approaches": [{
+      "name": "Selection sort", "time": "O(N²)", "space": "O(1)",
+      "explanation": "Find the min of the unsorted suffix, swap to the front.",
+      "code": "static void selectionSort(int[] a) {\n    int n = a.length;\n    for (int i = 0; i < n - 1; i++) {\n        int mi = i;\n        for (int j = i + 1; j < n; j++) if (a[j] < a[mi]) mi = j;\n        int t = a[i]; a[i] = a[mi]; a[mi] = t;\n    }\n}"
+    }],
+    "conceptIds": ["sorting-comparison"]
+  },
+
+  "sort-bubble": {
+    "step": 2, "section": "2.1", "sectionTitle": "Sorting",
+    "title": "Bubble Sort",
+    "difficulty": "Easy", "tags": ["sorting"],
+    "statement": "Implement bubble sort. Print the sorted array.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Sorted array, space-separated.",
+    "examples": [{"input": "5\n5 1 4 2 8", "output": "1 2 4 5 8"}],
+    "samples": [{"stdin": "5\n5 1 4 2 8", "expected": "1 2 4 5 8"}],
+    "tests": [
+      {"stdin": "5\n5 1 4 2 8", "expected": "1 2 4 5 8"},
+      {"stdin": "1\n1", "expected": "1"},
+      {"stdin": "4\n4 3 2 1", "expected": "1 2 3 4"},
+      {"stdin": "6\n3 -1 0 7 2 -5", "expected": "-5 -1 0 2 3 7"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void bubbleSort(int[] a) {\n        // your code\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        bubbleSort(a);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\n        System.out.println(sb);\n    }\n}",
+    "hints": [
+      "In each outer pass, compare adjacent pairs and swap if out of order.",
+      "After pass i, the largest i+1 elements are at the end. Inner loop can stop at n-i-1.",
+      "Early exit: if no swaps in a pass, array is sorted."
+    ],
+    "approaches": [{
+      "name": "Bubble sort with early exit", "time": "O(N²) worst, O(N) best", "space": "O(1)",
+      "code": "static void bubbleSort(int[] a) {\n    int n = a.length;\n    for (int i = 0; i < n - 1; i++) {\n        boolean swapped = false;\n        for (int j = 0; j < n - i - 1; j++) {\n            if (a[j] > a[j+1]) { int t=a[j]; a[j]=a[j+1]; a[j+1]=t; swapped = true; }\n        }\n        if (!swapped) break;\n    }\n}"
+    }],
+    "conceptIds": ["sorting-comparison"]
+  },
+
+  "sort-insertion": {
+    "step": 2, "section": "2.1", "sectionTitle": "Sorting",
+    "title": "Insertion Sort",
+    "difficulty": "Easy", "tags": ["sorting"],
+    "statement": "Implement insertion sort. Print the sorted array.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Sorted array, space-separated.",
+    "examples": [{"input": "5\n12 11 13 5 6", "output": "5 6 11 12 13"}],
+    "samples": [{"stdin": "5\n12 11 13 5 6", "expected": "5 6 11 12 13"}],
+    "tests": [
+      {"stdin": "5\n12 11 13 5 6", "expected": "5 6 11 12 13"},
+      {"stdin": "3\n1 2 3", "expected": "1 2 3"},
+      {"stdin": "4\n4 3 2 1", "expected": "1 2 3 4"},
+      {"stdin": "1\n99", "expected": "99"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void insertionSort(int[] a) {\n        // your code\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        insertionSort(a);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\n        System.out.println(sb);\n    }\n}",
+    "hints": [
+      "Think of your left hand of cards: pick the next card and slide it left until it's in the right place.",
+      "For each i from 1 to n-1: let key = a[i]; shift a[0..i-1] right while they are > key; place key."
+    ],
+    "approaches": [{
+      "name": "Insertion sort", "time": "O(N²) worst, O(N) best", "space": "O(1)",
+      "code": "static void insertionSort(int[] a) {\n    int n = a.length;\n    for (int i = 1; i < n; i++) {\n        int key = a[i], j = i - 1;\n        while (j >= 0 && a[j] > key) { a[j+1] = a[j]; j--; }\n        a[j+1] = key;\n    }\n}"
+    }],
+    "conceptIds": ["sorting-comparison"]
+  },
+
+  "sort-merge": {
+    "step": 2, "section": "2.1", "sectionTitle": "Sorting",
+    "title": "Merge Sort",
+    "difficulty": "Medium", "tags": ["sorting", "divide-and-conquer"],
+    "statement": "Implement merge sort. Print the sorted array.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Sorted array.",
+    "examples": [{"input": "6\n38 27 43 3 9 82", "output": "3 9 27 38 43 82"}],
+    "samples": [{"stdin": "6\n38 27 43 3 9 82", "expected": "3 9 27 38 43 82"}],
+    "tests": [
+      {"stdin": "6\n38 27 43 3 9 82", "expected": "3 9 27 38 43 82"},
+      {"stdin": "1\n5", "expected": "5"},
+      {"stdin": "2\n2 1", "expected": "1 2"},
+      {"stdin": "7\n7 6 5 4 3 2 1", "expected": "1 2 3 4 5 6 7"},
+      {"stdin": "5\n-3 0 -1 5 -2", "expected": "-3 -2 -1 0 5"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void mergeSort(int[] a, int l, int r) {\n        // your code\n    }\n    static void merge(int[] a, int l, int m, int r) {\n        // your code\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        mergeSort(a, 0, n - 1);\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\n        System.out.println(sb);\n    }\n}",
+    "hints": [
+      "Divide: split into halves; recursively sort each half.",
+      "Conquer (merge): with two sorted halves, merge into one sorted array using two pointers.",
+      "Base case: l >= r (single element or empty)."
+    ],
+    "approaches": [{
+      "name": "Divide and conquer", "time": "O(N log N)", "space": "O(N) auxiliary",
+      "explanation": "log N levels of division, each level does O(N) merging.",
+      "code": "static void mergeSort(int[] a, int l, int r) {\n    if (l >= r) return;\n    int m = (l + r) / 2;\n    mergeSort(a, l, m);\n    mergeSort(a, m + 1, r);\n    merge(a, l, m, r);\n}\nstatic void merge(int[] a, int l, int m, int r) {\n    int[] tmp = new int[r - l + 1];\n    int i = l, j = m + 1, k = 0;\n    while (i <= m && j <= r) tmp[k++] = a[i] <= a[j] ? a[i++] : a[j++];\n    while (i <= m) tmp[k++] = a[i++];\n    while (j <= r) tmp[k++] = a[j++];\n    for (int x = 0; x < tmp.length; x++) a[l + x] = tmp[x];\n}"
+    }],
+    "conceptIds": ["sorting-comparison", "divide-conquer"]
+  },
+
+  "arr-largest": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Largest element in array",
+    "difficulty": "Easy", "tags": ["arrays", "linear-scan"],
+    "statement": "Find the largest element in an array.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "The largest element.",
+    "examples": [{"input": "5\n3 2 1 5 2", "output": "5"}],
+    "samples": [{"stdin": "5\n3 2 1 5 2", "expected": "5"}],
+    "tests": [
+      {"stdin": "5\n3 2 1 5 2", "expected": "5"},
+      {"stdin": "1\n7", "expected": "7"},
+      {"stdin": "4\n-3 -1 -2 -5", "expected": "-1"},
+      {"stdin": "6\n10 10 10 10 10 10", "expected": "10"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // find and print max\n    }\n}",
+    "hints": [
+      "Track the running maximum as you scan.",
+      "Initialize max to a[0] (or Integer.MIN_VALUE), then update on each element."
+    ],
+    "approaches": [{
+      "name": "Linear scan", "time": "O(N)", "space": "O(1)",
+      "code": "int max = a[0];\nfor (int x : a) if (x > max) max = x;\nSystem.out.println(max);"
+    }],
+    "conceptIds": ["linear-scan"]
+  },
+
+  "arr-second-largest": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Second Largest (without sort)",
+    "difficulty": "Easy", "tags": ["arrays", "linear-scan"],
+    "statement": "Find the second largest DISTINCT element. If it doesn't exist (e.g., all equal), print -1.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Second largest distinct value, or -1.",
+    "examples": [
+      {"input": "5\n1 2 4 7 7", "output": "4", "explanation": "Largest = 7, second largest distinct = 4."},
+      {"input": "3\n5 5 5", "output": "-1"}
+    ],
+    "samples": [
+      {"stdin": "5\n1 2 4 7 7", "expected": "4"},
+      {"stdin": "3\n5 5 5", "expected": "-1"}
+    ],
+    "tests": [
+      {"stdin": "5\n1 2 4 7 7", "expected": "4"},
+      {"stdin": "3\n5 5 5", "expected": "-1"},
+      {"stdin": "6\n1 2 3 4 5 6", "expected": "5"},
+      {"stdin": "1\n9", "expected": "-1"},
+      {"stdin": "4\n10 5 10 5", "expected": "5"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Track both largest and secondLargest as you scan in O(N).",
+      "When you find a new largest L, the old largest becomes second.",
+      "Skip values equal to the current largest when updating second."
+    ],
+    "approaches": [
+      {
+        "name": "Sort (easy but O(N log N))", "time": "O(N log N)", "space": "O(1)",
+        "code": "Arrays.sort(a);\nint i = n - 2;\nwhile (i >= 0 && a[i] == a[n-1]) i--;\nSystem.out.println(i < 0 ? -1 : a[i]);"
+      },
+      {
+        "name": "Single-pass O(N)", "time": "O(N)", "space": "O(1)",
+        "explanation": "Maintain largest and second. When a new largest appears, demote the old largest.",
+        "code": "int largest = Integer.MIN_VALUE, second = Integer.MIN_VALUE;\nfor (int x : a) {\n    if (x > largest) { second = largest; largest = x; }\n    else if (x < largest && x > second) { second = x; }\n}\nSystem.out.println(second == Integer.MIN_VALUE ? -1 : second);"
+      }
+    ],
+    "conceptIds": ["linear-scan"]
+  },
+
+  "arr-is-sorted": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Check if Array is Sorted (non-decreasing)",
+    "difficulty": "Easy", "tags": ["arrays"],
+    "statement": "Return 'true' if the array is sorted non-decreasingly; else 'false'.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "'true' or 'false'.",
+    "examples": [{"input": "4\n1 2 2 5", "output": "true"}, {"input": "3\n1 3 2", "output": "false"}],
+    "samples": [{"stdin": "4\n1 2 2 5", "expected": "true"}, {"stdin": "3\n1 3 2", "expected": "false"}],
+    "tests": [
+      {"stdin": "4\n1 2 2 5", "expected": "true"},
+      {"stdin": "3\n1 3 2", "expected": "false"},
+      {"stdin": "1\n42", "expected": "true"},
+      {"stdin": "5\n5 4 3 2 1", "expected": "false"},
+      {"stdin": "4\n-2 -1 0 0", "expected": "true"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["For every i from 1 to n-1, check a[i-1] <= a[i]. If any pair violates, return false."],
+    "approaches": [{
+      "name": "Single scan", "time": "O(N)", "space": "O(1)",
+      "code": "boolean sorted = true;\nfor (int i = 1; i < n; i++) if (a[i] < a[i-1]) { sorted = false; break; }\nSystem.out.println(sorted);"
+    }],
+    "conceptIds": ["linear-scan"]
+  },
+
+  "arr-remove-duplicates": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Remove Duplicates from Sorted Array",
+    "difficulty": "Easy", "tags": ["arrays", "two-pointers"],
+    "statement": "Given a SORTED array, remove duplicates in-place and print: (line 1) K = count of distinct; (line 2) the first K elements of the modified array.",
+    "inputFormat": "Line 1: N. Line 2: N sorted integers.",
+    "outputFormat": "Line 1: K. Line 2: the K distinct values (ascending).",
+    "examples": [
+      {"input": "5\n1 1 2 2 3", "output": "3\n1 2 3"}
+    ],
+    "samples": [{"stdin": "5\n1 1 2 2 3", "expected": "3\n1 2 3"}],
+    "tests": [
+      {"stdin": "5\n1 1 2 2 3", "expected": "3\n1 2 3"},
+      {"stdin": "1\n7", "expected": "1\n7"},
+      {"stdin": "4\n1 1 1 1", "expected": "1\n1"},
+      {"stdin": "6\n0 0 1 1 1 2", "expected": "3\n0 1 2"},
+      {"stdin": "5\n1 2 3 4 5", "expected": "5\n1 2 3 4 5"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // remove duplicates; then print K and the first K values\n    }\n}",
+    "hints": [
+      "Two pointers: `i` (write index) and `j` (scan index).",
+      "Start with i=0; for each j from 1 to n-1, if a[j] != a[i], advance i and write a[j] to a[i].",
+      "K = i + 1."
+    ],
+    "approaches": [{
+      "name": "Two pointers (write + scan)", "time": "O(N)", "space": "O(1)",
+      "code": "int i = 0;\nfor (int j = 1; j < n; j++) {\n    if (a[j] != a[i]) { i++; a[i] = a[j]; }\n}\nint k = i + 1;\nSystem.out.println(k);\nStringBuilder sb = new StringBuilder();\nfor (int p = 0; p < k; p++) { if (p>0) sb.append(' '); sb.append(a[p]); }\nSystem.out.println(sb);"
+    }],
+    "conceptIds": ["two-pointers"]
+  },
+
+  "arr-rotate-1": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Left Rotate Array by 1",
+    "difficulty": "Easy", "tags": ["arrays"],
+    "statement": "Rotate the array left by one position (first element becomes last). Print the result.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Rotated array space-separated.",
+    "examples": [{"input": "5\n1 2 3 4 5", "output": "2 3 4 5 1"}],
+    "samples": [{"stdin": "5\n1 2 3 4 5", "expected": "2 3 4 5 1"}],
+    "tests": [
+      {"stdin": "5\n1 2 3 4 5", "expected": "2 3 4 5 1"},
+      {"stdin": "1\n9", "expected": "9"},
+      {"stdin": "2\n5 7", "expected": "7 5"},
+      {"stdin": "4\n-1 -2 -3 -4", "expected": "-2 -3 -4 -1"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // rotate by 1 and print\n    }\n}",
+    "hints": [
+      "Save a[0] to a temp. Shift each element one to the left. Put temp at a[n-1]."
+    ],
+    "approaches": [{
+      "name": "Shift in place", "time": "O(N)", "space": "O(1)",
+      "code": "int first = a[0];\nfor (int i = 0; i < n - 1; i++) a[i] = a[i+1];\na[n-1] = first;\nStringBuilder sb = new StringBuilder();\nfor (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\nSystem.out.println(sb);"
+    }],
+    "conceptIds": ["array-rotation"]
+  },
+
+  "arr-rotate-d": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Left Rotate Array by D",
+    "difficulty": "Medium", "tags": ["arrays", "reverse-trick"],
+    "statement": "Left rotate the array by D positions. Print the result.",
+    "inputFormat": "Line 1: N D. Line 2: N integers.",
+    "outputFormat": "Rotated array.",
+    "examples": [{"input": "7 3\n1 2 3 4 5 6 7", "output": "4 5 6 7 1 2 3"}],
+    "samples": [{"stdin": "7 3\n1 2 3 4 5 6 7", "expected": "4 5 6 7 1 2 3"}],
+    "tests": [
+      {"stdin": "7 3\n1 2 3 4 5 6 7", "expected": "4 5 6 7 1 2 3"},
+      {"stdin": "5 0\n1 2 3 4 5", "expected": "1 2 3 4 5"},
+      {"stdin": "5 5\n1 2 3 4 5", "expected": "1 2 3 4 5"},
+      {"stdin": "5 7\n1 2 3 4 5", "expected": "3 4 5 1 2"},
+      {"stdin": "3 1\n10 20 30", "expected": "20 30 10"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    static void reverse(int[] a, int l, int r) {\n        while (l < r) { int t = a[l]; a[l] = a[r]; a[r] = t; l++; r--; }\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt(), d = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // rotate by d\n    }\n}",
+    "hints": [
+      "Normalize d: d = d % n.",
+      "Reverse trick: reverse a[0..d-1], reverse a[d..n-1], reverse the whole array.",
+      "Or: use a temp array of size d for the first D elements."
+    ],
+    "approaches": [
+      {
+        "name": "Reverse trick (optimal)", "time": "O(N)", "space": "O(1)",
+        "explanation": "Three reversals of sub-arrays.",
+        "code": "d %= n;\nreverse(a, 0, d - 1);\nreverse(a, d, n - 1);\nreverse(a, 0, n - 1);\nStringBuilder sb = new StringBuilder();\nfor (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\nSystem.out.println(sb);"
+      },
+      {
+        "name": "Using temp array", "time": "O(N)", "space": "O(D)",
+        "explanation": "Save first D to temp; shift the rest; place temp at end.",
+        "code": "d %= n;\nint[] tmp = new int[d];\nfor (int i = 0; i < d; i++) tmp[i] = a[i];\nfor (int i = 0; i < n - d; i++) a[i] = a[i + d];\nfor (int i = 0; i < d; i++) a[n - d + i] = tmp[i];"
+      }
+    ],
+    "conceptIds": ["array-rotation", "reverse-trick"]
+  },
+
+  "arr-move-zeros": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Move Zeros to End",
+    "difficulty": "Easy", "tags": ["arrays", "two-pointers"],
+    "statement": "Move all 0s to the end while preserving the relative order of non-zeros. Print the modified array.",
+    "inputFormat": "Line 1: N. Line 2: N integers.",
+    "outputFormat": "Modified array, space-separated.",
+    "examples": [{"input": "7\n0 1 0 3 12 0 5", "output": "1 3 12 5 0 0 0"}],
+    "samples": [{"stdin": "7\n0 1 0 3 12 0 5", "expected": "1 3 12 5 0 0 0"}],
+    "tests": [
+      {"stdin": "7\n0 1 0 3 12 0 5", "expected": "1 3 12 5 0 0 0"},
+      {"stdin": "1\n0", "expected": "0"},
+      {"stdin": "1\n5", "expected": "5"},
+      {"stdin": "4\n0 0 0 0", "expected": "0 0 0 0"},
+      {"stdin": "5\n1 2 3 4 5", "expected": "1 2 3 4 5"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "Two pointers: `j` points at the first zero; scan with `i`.",
+      "When a[i] != 0 and i > j, swap a[i] with a[j], then advance j.",
+      "If there are no zeros initially, j stays at -1 (or n) — handle that by scanning for the first zero first."
+    ],
+    "approaches": [{
+      "name": "Two pointers (single pass)", "time": "O(N)", "space": "O(1)",
+      "code": "int j = -1;\nfor (int i = 0; i < n; i++) if (a[i] == 0) { j = i; break; }\nif (j == -1) { /* already good */ }\nelse {\n    for (int i = j + 1; i < n; i++) {\n        if (a[i] != 0) { int t = a[i]; a[i] = a[j]; a[j] = t; j++; }\n    }\n}\nStringBuilder sb = new StringBuilder();\nfor (int i = 0; i < n; i++) { if (i>0) sb.append(' '); sb.append(a[i]); }\nSystem.out.println(sb);"
+    }],
+    "conceptIds": ["two-pointers"]
+  },
+
+  "arr-union-sorted": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Union of Two Sorted Arrays",
+    "difficulty": "Easy", "tags": ["arrays", "two-pointers"],
+    "statement": "Given two sorted arrays, print their union (distinct elements in ascending order).",
+    "inputFormat": "Line 1: N M. Line 2: N sorted ints. Line 3: M sorted ints.",
+    "outputFormat": "Union, space-separated.",
+    "examples": [{"input": "5 5\n1 2 3 4 5\n2 3 4 4 5", "output": "1 2 3 4 5"}],
+    "samples": [{"stdin": "5 5\n1 2 3 4 5\n2 3 4 4 5", "expected": "1 2 3 4 5"}],
+    "tests": [
+      {"stdin": "5 5\n1 2 3 4 5\n2 3 4 4 5", "expected": "1 2 3 4 5"},
+      {"stdin": "3 2\n1 1 1\n2 2", "expected": "1 2"},
+      {"stdin": "3 3\n1 2 3\n4 5 6", "expected": "1 2 3 4 5 6"},
+      {"stdin": "1 1\n5\n5", "expected": "5"}
+    ],
+    "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt(), m = sc.nextInt();\n        int[] a = new int[n]; for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        int[] b = new int[m]; for (int i = 0; i < m; i++) b[i] = sc.nextInt();\n        // print union\n    }\n}",
+    "hints": [
+      "Two pointers i, j over a, b. At each step take the smaller; if equal, take one and advance both.",
+      "Track lastAdded to skip consecutive duplicates."
+    ],
+    "approaches": [{
+      "name": "Two pointers merge", "time": "O(N+M)", "space": "O(N+M) output",
+      "code": "List<Integer> u = new ArrayList<>();\nint i = 0, j = 0;\nwhile (i < n && j < m) {\n    int v;\n    if (a[i] < b[j]) v = a[i++];\n    else if (a[i] > b[j]) v = b[j++];\n    else { v = a[i]; i++; j++; }\n    if (u.isEmpty() || u.get(u.size()-1) != v) u.add(v);\n}\nwhile (i < n) { int v = a[i++]; if (u.isEmpty() || u.get(u.size()-1) != v) u.add(v); }\nwhile (j < m) { int v = b[j++]; if (u.isEmpty() || u.get(u.size()-1) != v) u.add(v); }\nStringBuilder sb = new StringBuilder();\nfor (int k = 0; k < u.size(); k++) { if (k>0) sb.append(' '); sb.append(u.get(k)); }\nSystem.out.println(sb);"
+    }],
+    "conceptIds": ["two-pointers"]
+  },
+
+  "arr-missing-num": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Find Missing Number (1..N)",
+    "difficulty": "Easy", "tags": ["arrays", "xor-trick", "math"],
+    "statement": "You are given an array of N-1 distinct integers, each in range 1..N. Find the single missing number.",
+    "inputFormat": "Line 1: N. Line 2: N-1 integers.",
+    "outputFormat": "The missing number.",
+    "examples": [{"input": "5\n1 2 4 5", "output": "3"}],
+    "samples": [{"stdin": "5\n1 2 4 5", "expected": "3"}],
+    "tests": [
+      {"stdin": "5\n1 2 4 5", "expected": "3"},
+      {"stdin": "3\n1 2", "expected": "3"},
+      {"stdin": "4\n2 3 4", "expected": "1"},
+      {"stdin": "1\n", "expected": "1"},
+      {"stdin": "6\n1 2 3 4 5", "expected": "6"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n - 1];\n        for (int i = 0; i < n - 1; i++) a[i] = sc.nextInt();\n        // print missing\n    }\n}",
+    "hints": [
+      "Sum approach: expected = N*(N+1)/2, subtract actual sum.",
+      "XOR approach: XOR of 1..N XOR all array elements = missing (handles overflow)."
+    ],
+    "approaches": [
+      {
+        "name": "Sum formula", "time": "O(N)", "space": "O(1)",
+        "code": "long expected = (long) n * (n + 1) / 2;\nlong actual = 0;\nfor (int x : a) actual += x;\nSystem.out.println(expected - actual);"
+      },
+      {
+        "name": "XOR (overflow-safe)", "time": "O(N)", "space": "O(1)",
+        "explanation": "x ^ x = 0, x ^ 0 = x. XOR of full range cancels out present values.",
+        "code": "int x = 0;\nfor (int i = 1; i <= n; i++) x ^= i;\nfor (int v : a) x ^= v;\nSystem.out.println(x);"
+      }
+    ],
+    "conceptIds": ["xor-trick"]
+  },
+
+  "arr-max-ones": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Max Consecutive 1s",
+    "difficulty": "Easy", "tags": ["arrays", "linear-scan"],
+    "statement": "In a binary (0/1) array, return the maximum length of a consecutive run of 1s.",
+    "inputFormat": "Line 1: N. Line 2: N values 0 or 1.",
+    "outputFormat": "Max run length.",
+    "examples": [{"input": "6\n1 1 0 1 1 1", "output": "3"}],
+    "samples": [{"stdin": "6\n1 1 0 1 1 1", "expected": "3"}],
+    "tests": [
+      {"stdin": "6\n1 1 0 1 1 1", "expected": "3"},
+      {"stdin": "5\n0 0 0 0 0", "expected": "0"},
+      {"stdin": "4\n1 1 1 1", "expected": "4"},
+      {"stdin": "1\n1", "expected": "1"},
+      {"stdin": "1\n0", "expected": "0"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": ["Walk once. Track current run. On 0, reset. Track best."],
+    "approaches": [{
+      "name": "Running count", "time": "O(N)", "space": "O(1)",
+      "code": "int best = 0, cur = 0;\nfor (int x : a) { cur = x == 1 ? cur + 1 : 0; if (cur > best) best = cur; }\nSystem.out.println(best);"
+    }],
+    "conceptIds": ["linear-scan"]
+  },
+
+  "arr-single-number": {
+    "step": 3, "section": "3.1", "sectionTitle": "Arrays Easy",
+    "title": "Single Number (others twice)",
+    "difficulty": "Easy", "tags": ["arrays", "xor-trick"],
+    "statement": "Every element appears exactly twice except one which appears once. Find it in O(N) time and O(1) space.",
+    "inputFormat": "Line 1: N (odd). Line 2: N integers.",
+    "outputFormat": "The unique element.",
+    "examples": [{"input": "5\n4 1 2 1 2", "output": "4"}],
+    "samples": [{"stdin": "5\n4 1 2 1 2", "expected": "4"}],
+    "tests": [
+      {"stdin": "5\n4 1 2 1 2", "expected": "4"},
+      {"stdin": "1\n99", "expected": "99"},
+      {"stdin": "3\n2 2 1", "expected": "1"},
+      {"stdin": "7\n1 2 3 2 1 4 3", "expected": "4"},
+      {"stdin": "5\n-1 2 -1 2 5", "expected": "5"}
+    ],
+    "starter": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        int[] a = new int[n];\n        for (int i = 0; i < n; i++) a[i] = sc.nextInt();\n        // your code\n    }\n}",
+    "hints": [
+      "XOR is magic here: x ^ x = 0 and x ^ 0 = x.",
+      "XOR all elements — pairs cancel; the lonely one remains."
+    ],
+    "approaches": [{
+      "name": "XOR fold", "time": "O(N)", "space": "O(1)",
+      "code": "int x = 0;\nfor (int v : a) x ^= v;\nSystem.out.println(x);"
+    }],
+    "conceptIds": ["xor-trick"]
+  }
+}
