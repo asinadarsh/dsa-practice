@@ -1,0 +1,64 @@
+{
+  "patterns": {
+    "title": "Pattern Problems",
+    "icon": "🎨",
+    "tagline": "Solve any pattern in seconds — see the formula before you finish reading the problem.",
+    "tricks": [
+      {
+        "title": "The 3-second decode",
+        "summary": "When you see a pattern, ask only three questions in order.",
+        "html": "<p>When a pattern shows up, ask <b>only these three questions</b> in your head:</p><ol><li><b>How many rows?</b> (this is your outer loop length)</li><li><b>What's the leftmost thing on row i?</b> (spaces? content? what character?)</li><li><b>How long is row i and where does it stop?</b></li></ol><p>If you can answer those three in under 5 seconds, you've already solved it — coding is just typing.</p>"
+      },
+      {
+        "title": "The 5 atomic shapes",
+        "summary": "Every pattern is one of these — or a combo. Train your eye to recognize, not solve.",
+        "html": "<table><thead><tr><th>Shape</th><th>What you see</th><th>Mental cue</th></tr></thead><tbody><tr><td><b>Block</b></td><td>Filled rectangle</td><td>“every row identical”</td></tr><tr><td><b>Slope</b></td><td>Growing or shrinking triangle</td><td>“row i has i (or N−i+1)”</td></tr><tr><td><b>Cone</b></td><td>Centered pyramid</td><td>“spaces before, odd-count content after”</td></tr><tr><td><b>Mirror</b></td><td>Vertically symmetric</td><td>“build top half, copy-paste flipped”</td></tr><tr><td><b>Ring</b></td><td>Hollow / concentric</td><td>“border only, or distance-from-edge”</td></tr></tbody></table><p style=\"margin-top:10px;\">When you see Pattern 9 (Diamond) — your brain should fire: <b>“Cone + Cone-flipped”</b>. Pattern 19 → <b>“Cone going outside-in, mirrored”</b>. Pattern 17 → <b>“Cone with letters that climb-and-descend”</b>.</p><p>You're not solving from scratch — you're combining 5 shapes you already know.</p>"
+      },
+      {
+        "title": "The 4 magic formulas",
+        "summary": "Memorize once. They cover ~70% of all 22 patterns.",
+        "html": "<table><thead><tr><th>Need</th><th>Formula</th></tr></thead><tbody><tr><td>Stars/numbers in row i (growing triangle)</td><td><code>i</code></td></tr><tr><td>Stars in row i (shrinking triangle)</td><td><code>N − i + 1</code></td></tr><tr><td>Stars in centered pyramid (odd count)</td><td><code>2i − 1</code></td></tr><tr><td>Leading spaces in centered pyramid</td><td><code>N − i</code></td></tr></tbody></table><p style=\"margin-top:10px;\"><b>Letter version:</b> the j-th letter (0-indexed) is <code>(char)('A' + j)</code>. Patterns 14–18 are stars-patterns with <code>(char)('A'+j)</code> instead of <code>*</code>.</p>"
+      },
+      {
+        "title": "Imagine the pen — the universal template",
+        "summary": "Pretend you're drawing top-to-bottom, left-to-right. For every row, just two zones.",
+        "html": "<p>Pretend you're drawing the pattern <b>with a single pen</b>, top to bottom, left to right. For every row:</p><ul><li>How many steps with the pen <b>UP</b> (skipping = spaces)?</li><li>How many steps with the pen <b>DOWN</b> (drawing = stars/letters)?</li><li>Drop the pen, hit Enter, next row.</li></ul><p>This collapses every pattern into the same template:</p><pre>for (int i = 1; i &lt;= n; i++) {\n    skip( leadingSpaces(i) );\n    draw( contentCount(i), whatChar(i, j) );\n    println();\n}</pre><p>You're solving the same problem 22 times — only changing 3 small functions.</p>"
+      },
+      {
+        "title": "The 22-pattern memory journey (story chain)",
+        "summary": "One linked story you walk through — each scene cues the next pattern.",
+        "html": "<blockquote style=\"border-left:3px solid var(--accent); background:var(--panel2); padding:10px 14px; margin:8px 0; line-height:1.6;\">You walk up to a <b>brick wall</b>. You climb <b>stairs going up</b> — each step has <b>numbers 1, 12, 123</b> painted on it. Each floor <b>shouts its own number</b> — “1!”, “22!”, “333!” Reaching the top, you turn around and walk <b>back down</b> the same stairs, <b>counting backwards</b>. At the bottom you find a <b>Christmas tree</b> — you <b>flip it upside-down</b>, then put it on top of the original to make a <b>diamond ring</b>. You <b>slice the diamond in half</b>. Inside the half-diamond is a panel of <b>binary lights</b> flickering 0, 1, 0, 1. The lights crown a king wearing a <b>mirrored number crown</b>. The king is <b>counting continuously, never resetting</b> — 1, 23, 456, 78910. He climbs <b>alphabet stairs</b> (A, AB, ABC), slides back down them, and each step <b>echoes its letter</b> (A, BB, CCC). On the last step is a <b>pyramid of chanting letters</b> — ABCBA. Behind the pyramid, a kid is sliding down a slide that <b>starts later every time</b> — E, DE, CDE. The slide ends in a giant <b>hourglass</b> sealed inside a <b>butterfly's wings</b>, framed by a <b>picture frame</b>, hung on a wall made of <b>onion rings</b>.</blockquote>"
+      },
+      {
+        "title": "All 22 patterns — hook + formula table",
+        "summary": "Visual hook for each pattern + the one-line formula.",
+        "html": "<table><thead><tr><th>#</th><th>Hook image</th><th>Shape</th><th>Formula</th></tr></thead><tbody><tr><td>1</td><td>🧱 Brick wall</td><td>full square</td><td><code>N stars × N rows</code></td></tr><tr><td>2</td><td>📈 Stairs going up</td><td>growing triangle</td><td><code>row i = i stars</code></td></tr><tr><td>3</td><td>🪜 Numbered stairs</td><td>1, 12, 123</td><td><code>print j for j=1..i</code></td></tr><tr><td>4</td><td>📢 Floor shouts itself</td><td>1, 22, 333</td><td><code>print i, i times</code></td></tr><tr><td>5</td><td>📉 Stairs going down</td><td>shrinking triangle</td><td><code>row i = N-i+1 stars</code></td></tr><tr><td>6</td><td>🔢 Backwards numbered</td><td>12345, 1234</td><td><code>print j for j=1..N-i+1</code></td></tr><tr><td>7</td><td>🎄 Christmas tree</td><td>centered pyramid</td><td><code>(N-i) spaces + (2i-1) stars</code></td></tr><tr><td>8</td><td>🙃 Upside-down tree</td><td>inverted pyramid</td><td><code>(i-1) spaces + (2(N-i)+1) stars</code></td></tr><tr><td>9</td><td>💎 Diamond ring</td><td>tree + flipped tree</td><td><code>P7 then P8</code></td></tr><tr><td>10</td><td>🔺🔻 Sliced diamond</td><td>half diamond</td><td><code>stairs up then stairs down</code></td></tr><tr><td>11</td><td>💡 Binary lights</td><td>0/1 alternating</td><td><code>start = i%2; flip with ^=1</code></td></tr><tr><td>12</td><td>👑 Number crown</td><td><code>12  21</code></td><td><code>1..i + spaces(2(N-i)) + i..1</code></td></tr><tr><td>13</td><td>🏃 Continuous counter</td><td>1, 23, 456</td><td><code>int k=1; print k++ in inner</code></td></tr><tr><td>14</td><td>🔤 Alphabet stairs</td><td>A, AB, ABC</td><td><code>print 'A'+j for j=0..i-1</code></td></tr><tr><td>15</td><td>🔡 Alphabet stairs down</td><td>ABCDE, ABCD</td><td><code>print 'A'+j for j=0..N-i</code></td></tr><tr><td>16</td><td>🪞 Letter echo</td><td>A, BB, CCC</td><td><code>ch = 'A'+i-1; print ch i times</code></td></tr><tr><td>17</td><td>🗣️ Chanting pyramid</td><td>ABCBA</td><td><code>(N-i) spaces; ch climbs to mid then descends</code></td></tr><tr><td>18</td><td>🛝 Late-start slide</td><td>E, DE, CDE</td><td><code>print 'A'+j for j=N-i..N-1</code></td></tr><tr><td>19</td><td>⏳ Hourglass</td><td>top wide, narrow middle, mirror</td><td><code>stars + spaces = 2N (always)</code></td></tr><tr><td>20</td><td>🦋 Butterfly</td><td>wings spread wide in middle</td><td><code>i stars + 2(N-i) spaces + i stars; mirror</code></td></tr><tr><td>21</td><td>🖼️ Picture frame</td><td>hollow rectangle</td><td><code>if (border) '*' else ' '</code></td></tr><tr><td>22</td><td>🧅 Onion rings</td><td>concentric numbers</td><td><code>value = N - min(i,j,W-1-i,W-1-j)</code></td></tr></tbody></table>"
+      },
+      {
+        "title": "Family clusters — chunk 22 into 6 groups",
+        "summary": "Memorize in mini-groups instead of 22 individuals.",
+        "html": "<h4 style=\"margin:10px 0 4px;\">🟦 Group A — “Wall &amp; Triangles” (1, 2, 5)</h4><p>Wall = full, triangle up = step grows, triangle down = step shrinks.<br><i>One thought: blocks vs slopes.</i></p><h4 style=\"margin:14px 0 4px;\">🔢 Group B — “Numbers do tricks” (3, 4, 6)</h4><p>Same shapes as A, but digits replace stars. 3 = column number, 4 = row number, 6 = column number on shrinking triangle.<br><i>One thought: what does each digit print — i or j?</i></p><h4 style=\"margin:14px 0 4px;\">🎄 Group C — “Trees &amp; Diamonds” (7, 8, 9, 10)</h4><p>Tree, flipped tree, both stacked = diamond, sliced = half.<br><i>One thought: centered = spaces before stars; odd star count.</i></p><h4 style=\"margin:14px 0 4px;\">💡 Group D — “Number tricks” (11, 12, 13)</h4><p>Lights flicker (binary), crown is mirrored, counter never resets.<br><i>One thought: patterns about the digits themselves, not the shape.</i></p><h4 style=\"margin:14px 0 4px;\">🔤 Group E — “Alphabet show” (14–18)</h4><p>Same shapes as A/B/C but with <code>'A' + j</code>. Pattern 17 is the only twist (climb-and-descend).<br><i>One thought: swap stars for <code>(char)('A' + something)</code>.</i></p><h4 style=\"margin:14px 0 4px;\">🪞 Group F — “Symmetric finale” (19–22)</h4><p>Hourglass, butterfly, frame, onion. All symmetric.<br><i>One thought: width is fixed, content shifts in/out.</i></p>"
+      },
+      {
+        "title": "Cracking the tricky ones",
+        "summary": "Patterns 4, 17, 19, 22 — what trips most people up.",
+        "html": "<h4 style=\"margin:10px 0 4px;\">Pattern 17 (ABCBA) — “Climb then fall”</h4><p>Track <b>ONE variable</b> <code>ch = 'A'</code>. Walk it up to the middle column, then walk it down. Same code, just <code>ch++</code> becomes <code>ch--</code> after midpoint.</p><pre>for j = 1..(2i-1):\n    print ch\n    if j &lt; mid → ch++   else → ch--</pre><h4 style=\"margin:14px 0 4px;\">Pattern 19 (hourglass) — “Stars + spaces = 2N, always”</h4><p>Every row has the <b>same total width</b> = 2N. The split is <code>stars | spaces | stars</code>. As <code>i</code> grows, stars shrink and spaces grow — they always sum to 2N.</p><h4 style=\"margin:14px 0 4px;\">Pattern 22 (concentric numbers) — “Distance from edge”</h4><p>Stop thinking row-by-row. For every cell <code>(i, j)</code> in a <code>(2N−1)</code> square:</p><pre>value = N − min(i, j, width-1-i, width-1-j)</pre><p>One formula per cell. The four args are distances from top, left, bottom, right.</p><h4 style=\"margin:14px 0 4px;\">Pattern 4 (1, 22, 333) — “Print the row index, not the column”</h4><p>Read the <b>first column</b> of expected output: if it changes per row → print <code>i</code>. If it's always <code>1</code> → print <code>j</code>. That's how you tell P4 from P3.</p>"
+      },
+      {
+        "title": "The 5-row sketch routine",
+        "summary": "Do this 30-second drill for every new pattern. After 10 patterns it becomes reflex.",
+        "html": "<p>For any unfamiliar pattern, write this table on paper:</p><table><thead><tr><th>row i</th><th>spaces</th><th>content</th></tr></thead><tbody><tr><td>1</td><td>__</td><td>__</td></tr><tr><td>2</td><td>__</td><td>__</td></tr><tr><td>3</td><td>__</td><td>__</td></tr><tr><td>4</td><td>__</td><td>__</td></tr><tr><td>5</td><td>__</td><td>__</td></tr></tbody></table><p>Fill it in by counting. Now look at column 2 — what's the formula? Now column 3 — what's the formula? You just derived <code>f(i)</code> and <code>g(i)</code>. Code is mechanical from there.</p>"
+      },
+      {
+        "title": "Daily 10-minute drill",
+        "summary": "The single practice routine that builds reflex in a week.",
+        "html": "<ol><li>Pick a random pattern (1–22).</li><li>Cover the code. Look at output.</li><li><b>Out loud, say:</b> “f(i) = ___, g(i) = ___”.</li><li>Open editor. Write it. Submit.</li><li>If wrong, redo from step 3 — don't peek at code.</li></ol><p style=\"margin-top:10px;\">By day 3, you'll start seeing the formula <b>before you finish reading the problem</b>.</p>"
+      },
+      {
+        "title": "The mindset shift",
+        "summary": "Stop naming patterns by their number. Start naming them by their shape.",
+        "html": "<p>Stop saying <i>“this looks like Pattern 17 from Striver”</i> and start saying <i>“this is a Cone with letters that climb-and-descend”</i> or <i>“this is a Slope counting from N down”</i>.</p><p>Patterns aren't 22 things to memorize — they're <b>5 shapes × 3 contents (stars/numbers/letters) × 2 directions (up/down)</b>. Once your brain stops naming them and starts seeing them as combinations, you'll write any new pattern in under 60 seconds.</p>"
+      }
+    ]
+  }
+}

@@ -180,3 +180,14 @@ h3 { margin: 24px 0 10px; font-size:16px; color: var(--muted); text-transform: u
 
 .muted { color: var(--muted); }
 .hidden { display: none; }
+
+/* Trick cards */
+.trick-card { background: var(--panel2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 14px 18px; margin: 12px 0; line-height: 1.6; }
+.trick-body table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 13px; }
+.trick-body th, .trick-body td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; vertical-align: top; }
+.trick-body th { background: var(--panel); color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.trick-body code { background: var(--panel); padding: 1px 6px; border-radius: 3px; font-size: 12.5px; }
+.trick-body pre { background: var(--bg); padding: 10px 14px; border-radius: 6px; font-size: 12.5px; overflow-x: auto; }
+.trick-body ul, .trick-body ol { padding-left: 22px; }
+.trick-body h4 { font-size: 13.5px; color: var(--text); }

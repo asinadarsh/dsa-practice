@@ -22,6 +22,7 @@ const routes = {
   roadmap: renderRoadmap,
   problem: renderProblem,
   concepts: renderConcepts,
+  tricks: renderTricks,
   drill: renderDrill,
 };
 
@@ -529,6 +530,47 @@ function conceptHtml(c) {
   if (c.whyRemember) sections.push(`<h4>Why remember</h4><p>${esc(c.whyRemember)}</p>`);
   if (c.relatedProblems?.length) sections.push(`<h4>Related problems</h4><div>${c.relatedProblems.map(id => `<a href="#/problem/${id}" class="status-tag seeded" style="margin-right:4px;">${esc(id)}</a>`).join('')}</div>`);
   return sections.join('');
+}
+
+// ---------- TRICKS ----------
+async function renderTricks(id) {
+  const list = await api('/api/tricks');
+  const current = id || list[0]?.id;
+  let body = '<div class="muted">No topics yet.</div>';
+  if (current) {
+    try {
+      const t = await api('/api/tricks/' + current);
+      body = trickTopicHtml(t);
+    } catch (e) {
+      body = `<div class="muted">Topic "${esc(current)}" not found.</div>`;
+    }
+  }
+  render(`
+    <h2>Tricks</h2>
+    <div class="muted" style="margin-bottom:14px;">Mental shortcuts and memory tricks. More topics will be added as we cover new sections.</div>
+    <div class="concept-grid">
+      <div class="concept-list">
+        ${list.map(c => `<div class="item ${c.id === current ? 'active' : ''}" onclick="location.hash='#/tricks/${c.id}'">${esc(c.icon ? c.icon + ' ' : '')}${esc(c.title)} <span class="muted" style="font-size:11px;">· ${c.count}</span></div>`).join('')}
+      </div>
+      <div class="concept-body">${body}</div>
+    </div>
+  `);
+}
+
+function trickTopicHtml(t) {
+  const out = [];
+  out.push(`<h2 style="margin-top:0;">${esc(t.icon ? t.icon + ' ' : '')}${esc(t.title)}</h2>`);
+  if (t.tagline) out.push(`<p class="muted" style="font-size:14px; margin-top:-6px; margin-bottom:18px;">${esc(t.tagline)}</p>`);
+  for (const trick of (t.tricks || [])) {
+    out.push(`
+      <div class="trick-card">
+        <h3 style="margin:0 0 4px; font-size:16px; color: var(--text); text-transform:none; letter-spacing:0;">${esc(trick.title)}</h3>
+        ${trick.summary ? `<div class="muted" style="font-size:13px; margin-bottom:10px;">${esc(trick.summary)}</div>` : ''}
+        <div class="trick-body">${trick.html || ''}</div>
+      </div>
+    `);
+  }
+  return out.join('');
 }
 
 // ---------- DRILL ----------

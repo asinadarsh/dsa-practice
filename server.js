@@ -47,13 +47,14 @@ async function loadJson(name) {
   return JSON.parse(raw);
 }
 
-let steps, problems, concepts, flashcards;
+let steps, problems, concepts, flashcards, tricks;
 async function loadAll() {
-  [steps, problems, concepts, flashcards] = await Promise.all([
+  [steps, problems, concepts, flashcards, tricks] = await Promise.all([
     loadJson('steps.json'),
     loadJson('problems.json'),
     loadJson('concepts.json'),
     loadJson('flashcards.json'),
+    loadJson('tricks.json'),
   ]);
 }
 
@@ -267,6 +268,18 @@ app.get('/api/concepts/:id', (req, res) => {
 
 app.get('/api/flashcards', (_req, res) => {
   res.json(flashcards);
+});
+
+app.get('/api/tricks', (_req, res) => {
+  res.json(Object.entries(tricks).map(([id, t]) => ({
+    id, title: t.title, icon: t.icon || '', tagline: t.tagline || '', count: (t.tricks || []).length,
+  })));
+});
+
+app.get('/api/tricks/:id', (req, res) => {
+  const t = tricks[req.params.id];
+  if (!t) return res.status(404).json({ error: 'not found' });
+  res.json({ id: req.params.id, ...t });
 });
 
 app.get('/api/progress', async (_req, res) => {
