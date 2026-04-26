@@ -1,4 +1,4 @@
-name: Keep Render warm
+name: Auto-ping Render
 
 on:
   schedule:
