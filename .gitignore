@@ -1,8 +1,31 @@
 node_modules/
 data/progress.json
+
+# Environment & secrets
 .env
-.env.local
+.env.*
+*.env
+secrets.json
+secrets/
+*.pem
+*.key
+id_rsa*
+*.p12
+*.pfx
+service-account*.json
+credentials*.json
+
+# Logs & OS junk
 *.log
 .DS_Store
+Thumbs.db
+
+# Generated artifacts
 notes/step-1-2.html
 notes/step-1-2.pdf
+
+# Editor / tooling
+.vscode/
+.idea/
+*.swp
+*.swo

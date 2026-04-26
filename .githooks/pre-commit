@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Pre-commit secret scanner — blocks commits that contain known secret patterns.
+# Install with:  git config core.hooksPath .githooks
+
+set -e
+
+# Patterns to detect. Each pattern is paired with a label.
+PATTERNS=(
+  'sbp_[A-Za-z0-9]{20,}|Supabase Personal Access Token'
+  'sb_secret_[A-Za-z0-9_-]{10,}|Supabase secret key'
+  'sb_publishable_[A-Za-z0-9_-]{10,}|Supabase publishable key (still treat as private)'
+  'rnd_[A-Za-z0-9]{20,}|Render API key'
+  'ghp_[A-Za-z0-9]{30,}|GitHub Personal Access Token'
+  'gh[ousr]_[A-Za-z0-9]{30,}|GitHub fine-grained / OAuth token'
+  'AKIA[0-9A-Z]{16}|AWS Access Key ID'
+  'xox[baprs]-[A-Za-z0-9-]{10,}|Slack token'
+  'AIza[A-Za-z0-9_-]{30,}|Google API key'
+  'eyJhbGciOi[A-Za-z0-9._-]{40,}|JWT (likely Supabase legacy or other service-role)'
+  '-----BEGIN [A-Z ]*PRIVATE KEY-----|PEM private key'
+)
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACMRT)
+if [ -z "$STAGED" ]; then exit 0; fi
+
+FAIL=0
+while IFS= read -r FILE; do
+  # Skip binary files
+  if file --brief --mime "$FILE" 2>/dev/null | grep -q 'charset=binary'; then continue; fi
+
+  # Get the staged content (not the working tree — what's actually being committed)
+  CONTENT=$(git show ":$FILE" 2>/dev/null) || continue
+
+  for ENTRY in "${PATTERNS[@]}"; do
+    PAT="${ENTRY%%|*}"
+    LABEL="${ENTRY##*|}"
+    if echo "$CONTENT" | grep -qE -- "$PAT"; then
+      echo "SECRET BLOCKED: $LABEL in $FILE" >&2
+      MATCHES=$(echo "$CONTENT" | grep -nE -- "$PAT" | head -3 | sed 's/^/    /')
+      echo "$MATCHES" >&2
+      FAIL=1
+    fi
+  done
+done <<< "$STAGED"
+
+if [ $FAIL -ne 0 ]; then
+  echo "" >&2
+  echo "Commit aborted — remove secrets and put them in environment variables instead." >&2
+  echo "If this is a false positive, bypass with:  git commit --no-verify" >&2
+  exit 1
+fi
+exit 0
