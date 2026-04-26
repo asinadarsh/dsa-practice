@@ -70,6 +70,10 @@ h3 { margin: 24px 0 10px; font-size:16px; color: var(--muted); text-transform: u
 .mistake-row .title { font-size: 13.5px; }
 .mistake-row .meta { font-size: 11px; color: var(--muted); }
 .mistake-row .fail-count { color: var(--err); font-weight: 600; font-size: 12px; }
+.mistake-row.solved { opacity: 0.78; }
+.mistake-status { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 999px; margin-right: 6px; letter-spacing: .05em; }
+.mistake-status.open { background: rgba(248,113,113,.15); color: var(--err); }
+.mistake-status.solved { background: rgba(74,222,128,.15); color: var(--ok); }
 
 .empty-state { color: var(--muted); padding: 14px; text-align: center; font-size: 13px; }
 

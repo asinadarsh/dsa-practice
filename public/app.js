@@ -68,31 +68,40 @@ async function renderDashboard() {
     </div>`;
 
   // Mistakes
+  const unsolvedCount = d.mistakes.filter(m => !m.solved).length;
+  const reviewCount = d.mistakes.filter(m => m.solved).length;
   const mistakesHtml = d.mistakes.length
     ? `<div class="mistakes-card">
         <div class="mistakes-header">
           <h3>🔁 Practice your mistakes</h3>
           <span class="count-badge">${d.mistakes.length}</span>
+          ${unsolvedCount ? `<span class="meta" style="color: var(--err); font-size: 11px; font-weight:600;">${unsolvedCount} unsolved</span>` : ''}
+          ${reviewCount ? `<span class="meta" style="color: var(--warn); font-size: 11px; font-weight:600;">${reviewCount} solved (worth a redo)</span>` : ''}
           <div class="spacer"></div>
           <button id="practiceNextMistakeBtn">Practice next →</button>
         </div>
-        ${d.mistakes.slice(0, 8).map(m => `
-          <div class="mistake-row" onclick="location.hash='#/problem/${esc(m.id)}'">
+        ${d.mistakes.slice(0, 8).map(m => {
+          const statusBadge = m.solved
+            ? '<span class="mistake-status solved">SOLVED</span>'
+            : '<span class="mistake-status open">OPEN</span>';
+          return `
+          <div class="mistake-row ${m.solved ? 'solved' : ''}" onclick="location.hash='#/problem/${esc(m.id)}'">
             <div>
-              <div class="title">${esc(m.title)}</div>
+              <div class="title">${statusBadge} ${esc(m.title)}</div>
               <div class="meta">${esc(m.sectionTitle)} · last try ${timeAgo(m.lastAttempt)}</div>
             </div>
             <span class="difficulty-tag difficulty-${m.difficulty}">${m.difficulty}</span>
             <span class="meta">best ${m.bestPassCount}/${m.total}</span>
             <span class="fail-count">✗ ${m.failedCount}</span>
-          </div>`).join('')}
+          </div>`;
+        }).join('')}
         ${d.mistakes.length > 8 ? `<div class="meta" style="text-align:center; padding-top:6px;">+${d.mistakes.length - 8} more</div>` : ''}
       </div>`
     : `<div class="mistakes-card">
         <div class="mistakes-header">
           <h3>🔁 Practice your mistakes</h3>
         </div>
-        <div class="empty-state">No outstanding mistakes — every problem you've attempted, you've solved. 💪</div>
+        <div class="empty-state">No mistakes recorded yet. Once you have a failed attempt, it'll show up here for re-practice.</div>
       </div>`;
 
   // Reviews

@@ -393,14 +393,16 @@ app.get('/api/dashboard', async (_req, res) => {
     rate: v.attempts ? v.passed / v.attempts : 0,
   })).sort((a, b) => b.attempts - a.attempts);
 
-  // ----- Mistakes (failed attempts on problems not yet solved) -----
+  // ----- Mistakes (any problem with at least one failed attempt) -----
+  // Includes problems you've eventually solved — failures are still worth re-practicing.
+  // Unsolved-with-fails appear first (higher priority).
   const mistakes = [];
   for (const [id, atts] of Object.entries(progress.attempts)) {
-    if (progress.solved[id]) continue;
     const failedCount = atts.filter(a => !a.passed).length;
     if (failedCount === 0) continue;
     const last = atts[atts.length - 1];
     const p = problems[id];
+    const solved = !!progress.solved[id];
     mistakes.push({
       id,
       title: p?.title || id,
@@ -411,9 +413,15 @@ app.get('/api/dashboard', async (_req, res) => {
       lastAttempt: last.ts,
       bestPassCount: Math.max(...atts.map(a => a.pass || 0)),
       total: last.total || 0,
+      solved,
+      status: solved ? 'solved-with-mistakes' : 'unsolved',
     });
   }
-  mistakes.sort((a, b) => new Date(b.lastAttempt) - new Date(a.lastAttempt));
+  // Unsolved first; within each group, most recent failure first
+  mistakes.sort((a, b) => {
+    if (a.solved !== b.solved) return a.solved ? 1 : -1;
+    return new Date(b.lastAttempt) - new Date(a.lastAttempt);
+  });
 
   // ----- Review queue -----
   const reviewDue = Object.entries(progress.reviewSchedule)
